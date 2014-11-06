@@ -1,0 +1,562 @@
+@font-face {
+  font-family: 'icomoon';
+  src:url('../fonts/icomoon.eot');
+  src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.woff') format('woff'),
+    url('../fonts/icomoon.ttf') format('truetype'),
+    url('../fonts/icomoon.svg#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+a.install {
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  font: 600 12px/18px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;
+  color: #FFF;
+  text-decoration: none;
+  background-color: rgba(0,0,0,.38);
+  border: solid 1px rgba(0,0,0,.18);
+  position: absolute;
+  top: 26px;
+  right: 3px;
+  z-index: 1337;
+  height: 18px;
+  padding: 0 5px;
+  cursor: pointer;
+  text-shadow: rgba(0,0,0,.08);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+a.install:hover {
+  background-color: rgba(0,0,0,.28);
+}
+a.install:active {
+  background-color: rgba(0,0,0,.22);
+}
+
+body, html {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+.clear {
+  display: block;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  clear: both;
+  float: none;
+}
+
+.container {
+  width: auto;
+  height: auto;
+}
+
+.post {
+  width: 100%;
+  height: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.post-bg {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  position: relative;
+}
+
+.title {
+  background: #FF3333;
+  color: white;
+  text-align: center;
+  height: auto;
+  padding: 30px 0;
+  font-weight: bold;
+  position: relative;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.title.index-title h1 {
+  font-size: 64px;
+}
+
+.title h2 {
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+}
+
+.title.index-title h2 {
+  font-size: 24px;
+}
+
+.title a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.title a:hover {
+  text-decoration: underline;
+}
+
+a {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+#disqus_block a  {
+  color: #0BA5E6;
+}
+
+.arrow-up {
+  margin: 0 auto;
+  width: 0; 
+  height: 0; 
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid #000;
+  position: absolute;
+  left: 50%;
+  margin-left: -11px;
+  bottom: -1px;
+}
+
+.meta {
+  background: #000;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.meta a {
+  text-decoration: none;
+}
+
+.meta a:hover {
+  color: #FF3333;
+}
+
+.meta ul {
+  margin: 0;
+  padding: 0;
+}
+
+.meta li {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.caption {
+  font-size: 24px;
+  margin-right: 10%;
+  font-weight: bold;
+  color: #FFF;
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+.caption p, .caption blockquote {
+  margin: 0;
+}
+
+.caption span {
+  display: inline-block;
+  padding: 15px 20px;
+  background: rgba(0,0,0,0.5);
+}
+
+.post {
+  background-color: #00D9A3;
+}
+
+nav {
+  background: #333;
+  color: #FFF;
+  font-size: 72px;
+  position: relative;
+  width: 100%;
+}
+
+nav a  {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+
+nav a:hover {
+  background-color: #FF5153;
+}
+
+.back, .forward {
+  float: left;
+  width: 50%;
+  background: #FF3333;
+}
+
+.forward {
+  float: right;
+}
+
+/* ==========================================================================
+   Text / Chat Posts
+   ========================================================================== */
+
+.text, .chat {
+  background: #0BA5E6;
+  height: auto;
+  padding: 150px 0 160px;
+}
+
+.text-block {
+  font-size: 16px;
+  line-height: 1.5em;
+  width: 50%;
+  margin: 0 auto;
+  min-width: 300px;
+  position: relative;
+  color: white;
+}
+
+.text-block a {
+  color: black;
+}
+
+.conversation {
+  margin: 0 auto;
+  padding: 0;
+  width: 50%;
+  min-width: 300px;
+  position: relative;
+  top: 20%;
+  list-style: none;
+}
+
+.conversation li {
+  padding: 20px;
+  color: #FFF;
+  background: rgba(0,0,0,0.75);
+}
+
+.conversation li.odd {
+  background: rgba(255,255,255,0.75);
+  color: black;
+}
+
+/* ==========================================================================
+   Photo Posts
+   ========================================================================== */
+
+
+.photo.post-bg {
+  background-color: #00B2AC;
+}
+
+article.photoset:last-child {
+  display: none;
+}
+
+.photo a, .panorama a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Link / Quote Posts
+   ========================================================================== */
+
+
+.link h3 {
+  margin: 0 auto;
+  position: relative;
+  top: 40%;
+  font-size: 32px;
+  text-align: center;
+  color: #FFF;
+}
+
+.link h3 a {
+  text-decoration: none;
+}
+
+.link h3 a:hover {
+  text-decoration: underline;
+}
+
+
+.quote .quote-text {
+  text-align: center;
+  position: relative;
+  top: 35%;
+  margin: 0 5%;
+}
+
+.quote blockquote {
+  margin: 0;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+}
+
+.quote .source {
+  color: #FFF;
+  opacity: 0.75;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.quote .source a {
+  color: white;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Audio / Video Posts
+   ========================================================================== */
+
+.audio_player {
+  width: 200px;
+  margin: 0 auto;
+  height: 100px;
+}
+
+.tumblr_audio_player {
+  width: 200px;
+  height: 100px;
+  position: relative;
+  top: 100px;
+  opacity: 0.9;
+}
+
+
+.video.post-bg, .audio.post-bg {
+  background-color: #0CE8F0;
+}
+
+.audio.post-bg {
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+.video iframe {
+  display: block;
+  width: 300px;
+  height: 225px;
+  min-width: 300px;
+  margin: 0 auto;
+  position: relative;
+  top: 10%;
+}
+
+.video .spotify_audio_player {
+  width: 300px;
+  height: auto;
+  position: relative;
+  top: 20%;
+}
+
+.video .soundcloud_audio_player {
+  width: 300px;
+  height: auto;
+  position: relative;
+  top: 20%;
+}
+
+/* ==========================================================================
+   Post Notes
+   ========================================================================== */
+
+.notes {
+  padding: 0;
+  margin: 0;
+  background: #222;
+}
+
+.notes li {
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+
+.notes li:nth-child(even) {
+  background: #111;
+}
+
+.notes li .avatar_frame {
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 10px;
+}
+
+.notes li .avatar_frame img {
+  width: 32px;
+  height: 32px;
+}
+
+.notes li .action {
+  color: #ccc;
+}
+
+.notes li .action a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.notes li .action a:hover {
+  text-decoration: underline;
+}
+
+#disqus_block {
+  background:#f6f6f6;
+  padding: 30px 0;
+}
+
+#disqus_thread {
+  width: 50%;
+  margin: 0 auto;
+  min-width: 500px;
+}
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-device-width: 1025px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    max-width: 1500px;
+  }
+
+  .title.index-title {
+    height: 50%;
+    padding: 0;
+  }
+
+  .title h2 {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .title-text {
+    position: relative;
+    top: 30%;
+    padding-bottom: 30px;
+  }
+
+  .post {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .post.inline {
+    height: auto;
+    min-height: auto;
+  }
+
+  .post-bg {
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .text-block {
+    font-size: 20px;
+    width: 600px;
+  }
+
+
+  .audio_player {
+    width: 30%;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .tumblr_audio_player {
+    width: 100%;
+    height: 20%;
+    position: relative;
+    top: 40%;
+  }
+
+  .video iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+  }
+
+  .video .spotify_audio_player {
+    width: 426px;
+    height: 70%;
+    top: 10%;
+  }
+
+  .video .soundcloud_audio_player {
+    width: 80%;
+    height: 165px;
+    top: 40%;
+  }  
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+
+}
+
+/* ==========================================================================
+   Font Icons
+   ========================================================================== */
+
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+*/
+.icon-heart, .icon-bubble, .icon-link {
+  font-family: 'icomoon';
+  speak: none;
+  line-height: 1;
+}
+.icon-heart:before, .icon-bubble:before, .icon-link:before {
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-heart:before {
+  content: "\e003";
+}
+.icon-bubble:before {
+  content: "\e004\ ";
+}
+.icon-link:before {
+  content: "\e000";
+}
