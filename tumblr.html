@@ -7,7 +7,7 @@
 
 <!--
 
-  Fixed. Tumblr Theme
+  Fixed+ Tumblr Theme
   http://fixed.andrevv.com/
 
   Copyright (c) 2013 Andrew McCarthy.
@@ -18,26 +18,60 @@
 
 -->
 
-<meta name='text:Disqus Shortname' content='' />
+<meta name='text:Disqus shortname' content='' />
 <meta name="text:Google Analytics ID" content="">
 
 <!-- DEFAULT COLORS -->
-<meta name="color:Title" content="#FFFFFF"/>
-<meta name="color:Title Hover" content="#000000"/>
-<meta name="color:Text Post" content="#2c333f"/>
-<meta name="color:Quote Post" content="#ff6b46"/>
-<meta name="color:Chat Post" content="#0ba5e6"/>
-<meta name="color:Link Post" content="#1de7a2"/>
-<meta name="color:Audio Post" content="#9575B2"/>
+<meta name="color:Header background color" content="#FF0000"/>
+<meta name="color:Header title" content="#FFFFFF"/>
+<meta name="color:Header title hover" content="#000000"/>
+
+<meta name="color:Avatar border color" content="#FFFFFF"/>
+<meta name="color:Menu background" content="#000000"/>
+<meta name="color:Menu text" content="#FFFFFF"/>
+<meta name="color:Text post background" content="#2c333f"/>
+<meta name="color:Text post text" content="#FFFFFF"/>
+<meta name="color:Photo post background" content="#111111"/>
+<meta name="color:Quote post background" content="#ff6b46"/>
+<meta name="color:Chat post background" content="#0ba5e6"/>
+<meta name="color:Link post background" content="#1de7a2"/>
+<meta name="color:Audio post background" content="#9575B2"/>
 
 <!-- OPTIONS -->
 <meta name="if:Infinite scrolling" content="0">
 <meta name="if:Show description" content="1"/>
 <meta name="if:Show captions on index" content="1"/>
+<meta name="if:Show archive link" content="1"/>
+<meta name="if:Show menu" content="1"/>
 
-<meta name="select:Photos" content="tile" title="Tile">
-<meta name="select:Photos" content="fill" title="Fill screen">
-<meta name="select:Photos" content="center" title="Center">
+<meta name="select:Interface shape" content="Circle" title="Circle">
+<meta name="select:Interface shape" content="Square" title="Square">
+
+<meta name="select:Interface display" content="Dark" title="Dark">
+<meta name="select:Interface display" content="Light" title="Light">
+
+<meta name="select:Photo background size" content="tile" title="Tile">
+<meta name="select:Photo background size" content="fill" title="Fill">
+<meta name="select:Photo background size" content="center" title="Center">
+
+<meta name="select:Header background size" content="cover" title="Fill">
+<meta name="select:Header background size" content="contain" title="Tile">
+
+<!-- Image Options -->
+<meta name="text:Avatar border size" content="5px"/>
+<meta name="if:Header background display" content="1"/>
+<meta name="image:Header logo" content="" />
+<meta name="text:Header height" content="100%"/>
+<meta name="select:Header background attachment" content="scroll" title="Scroll" />
+<meta name="select:Header background attachment" content="fixed" title="Fixed" />
+<meta name="select:Photo background attachment" content="fixed" title="Fixed" />
+<meta name="select:Photo background attachment" content="scroll" title="Scroll" />
+
+
+<!-- FONT OPTIONS -->
+<meta name="font:Font header" content="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<meta name="font:Font body" content="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<meta name="font:Font menu" content="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
 
 
 <title>{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}</title>
@@ -98,7 +132,7 @@
 body, html {
   width: 100%;
   height: 100%;
-  font-family: "Helvetica Neue","HelveticaNeue",Helvetica,Arial;
+  font-family: {font:Font Body};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: black;
@@ -129,11 +163,12 @@ body, html {
   height: auto;
   margin: 0 auto;
   position: relative;
-  background-color: {Color:Text Post};
+  background-color: {Color:Text post background};
 }
 
 .post-text {
-  background-color: {Color:Text Post};
+  background-color: {Color:Text post background};
+  color: {Color:Text post text;}
 }
 
 .post.post-text {
@@ -142,25 +177,25 @@ body, html {
 }
 
 .post-quote {
-  background-color: {Color:Quote Post};
+  background-color: {Color:Quote post background};
 }
 
 .post-link {
-  background-color: {Color:Link Post};
+  background-color: {Color:Link post background};
 }
 
 .post-chat {
-  background-color: {Color:Chat Post};
+  background-color: {Color:Chat post background};
 }
 
 .post-audio,
 .post-video {
-  background-color: {Color:Audio Post};
+  background-color: {Color:Audio post background};
 }
 
 .post-photo,
 .post-photoset {
-  background: #111 center center no-repeat fixed;
+  background: {Color:Photo post background} center center no-repeat {select:Photo background attachment};
   background-size: 32px;
 }
 
@@ -205,17 +240,21 @@ body, html {
   position: absolute;
   width: 100%;
   z-index: 100;
+  color: {color:Header title};
 }
 
 .title h1 {
-  color: {color:Title};
   margin: 0;
   font-size: 32px;
   word-wrap: break-word;
 }
 
+.title h1 a {
+  color: {color:Header title};
+}
+
 .title a:hover {
-  color: {color:Title Hover};
+  color: {color:Header title hover};
 }
 
 .title.index-title h1 {
@@ -227,7 +266,6 @@ body, html {
   margin-top: 10px;
   font-size: 20px;
   font-weight: normal;
-  color: white;
 }
 
 .title.index-title h2 {
@@ -235,13 +273,17 @@ body, html {
 }
 
 .title a {
-  color: {color:Title};
+  color: {color:Header title};
   text-decoration: none;
 }
 
 a {
   color: #FFF;
   text-decoration: underline;
+}
+
+.Light a {
+  color: #333;
 }
 
 #disqus_block a  {
@@ -273,8 +315,25 @@ a {
   left: 10px;
 }
 
+.Light .meta{
+  background: rgba(255,255,255,0.3);
+  color: #333;
+}
+
+.Light .meta a {
+  color: #333;
+}
+
+.Circle .meta {
+  border-radius: 20px;
+}
+
 .meta:hover {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,1);
+}
+
+.Light .meta:hover {
+  background: rgba(255,255,255,1);
 }
 
 .meta a {
@@ -294,6 +353,7 @@ a {
 }
 
 .meta li.more-link {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0;
   line-height: auto;
 }
@@ -302,9 +362,9 @@ a {
   display: block;
   padding: 0;
   font-size: 20px;
-  line-height: 29px;
-  width: 35px;
-  height: 35px;
+  line-height: 30px;
+  width: 36px;
+  height: 36px;
   text-align: center;
 }
 
@@ -329,6 +389,22 @@ a {
   padding: .5em 1em;
   background: rgba(0,0,0,0.5);
   margin: 0 20%;
+}
+
+.Light .caption > span {
+  background: rgba(255,255,255,0.5);
+}
+
+.Light .caption {
+  color: #333;
+}
+
+.Light .caption a {
+  color: #333;
+}
+
+.Circle .caption > span {
+  border-radius: 20px;
 }
 
 {block:IfNotShowCaptionsOnIndex}
@@ -359,6 +435,10 @@ nav a:hover {
   background-color: #000;
 }
 
+.arrow {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .back, .forward {
   float: left;
   width: 50%;
@@ -367,6 +447,42 @@ nav a:hover {
 .forward {
   float: right;
 }
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+header {
+  position: relative;
+  background-color: {color:Header Background Color};
+  {block:ShowHeaderImage} 
+  background-image: url('{HeaderImage}');
+  {/block:ShowHeaderImage} 
+  background-attachment: {select:Header background attachment};
+  background-size: {select:Header Background Size};
+  background-position: center;
+  min-height: {text:Header Height};
+  font-family: {font:Font Header};
+}
+
+header .title {
+  height: 100%;
+}
+
+header .title.index-title .title-text {
+  top: 45%;
+  -webkit-transform: translate(0, -50%);
+}
+
+img.avatar {
+  margin: 10px;
+  border: {text:Avatar Border Size} solid {color:Avatar border color};
+}
+
+img.avatar.circle {
+  border-radius: 100px;
+}
+
 
 /* ==========================================================================
    Menu
@@ -400,13 +516,18 @@ nav a:hover {
   transition: transform 200ms ease-in-out;
   width: 300px;
   height: 100%;
-  background: black;
-  color: white;
+  background: {Color:Menu Background};
+  color: {Color:Menu Text};
   overflow: auto;
+  font-family: {font:Font Menu};
 }
 
 #menu ul + ul {
   border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.Light #menu ul + ul {
+  border-top: 1px solid rgba(0,0,0,0.2);
 }
 
 #menu h3 {
@@ -437,11 +558,12 @@ nav a:hover {
   -moz-transition: border 200ms;
   -o-transition: border 200ms;
   transition: border 200ms;
+  color: {Color:Menu Text};
 }
 
 #menu li a:hover {
   text-decoration: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid {Color:Menu Text};
 }
 
 label[for=ShowMenu] {
@@ -454,13 +576,25 @@ label[for=ShowMenu] {
   text-align: center;
   padding: 0;
   margin: 0;
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
+}
+
+.Light label[for=ShowMenu] {
+  background: rgba(255,255,255,0.3);
+}
+
+.Circle label[for=ShowMenu] {
+  border-radius: 20px;
 }
 
 label[for=ShowMenu]:hover {
   background: black;
+}
+
+.Light label[for=ShowMenu]:hover {
+  background: white;
 }
 
 label[for=ShowMenu] span {
@@ -469,7 +603,13 @@ label[for=ShowMenu] span {
   height: 2px;
   background: white;
   position: relative;
-  top: 3px;
+  top: 4px;
+}
+
+.Light label[for=ShowMenu] span,
+.Light label[for=ShowMenu] span:before,
+.Light label[for=ShowMenu] span:after {
+  background: black;
 }
 
 label[for=ShowMenu] span:before,
@@ -566,6 +706,10 @@ label[for=ShowMenu] span:after {
 .answer-avatar {
   float: left;
   margin: 0 20px 20px 0;
+}
+
+.Circle .answer-avatar {
+  border-radius: 100px;
 }
 
 /* ==========================================================================
@@ -820,7 +964,7 @@ article.photoset:last-child {
   .post-bg {
     height: 100%;
     background-size: contain;
-    background-attachment: fixed;
+    background-attachment: {select:Photo background attachment};
     background-repeat: repeat;
   }
 
@@ -944,12 +1088,27 @@ _gaq.push(['_trackPageview']);
 })();
 </script>{/block:IfGoogleAnalyticsID}
 </head>
-  <body>
+  <body class="{select:Interface Shape} {select:Interface Display}">
     {block:IfShowInstallThemeButton}<a href="http://fixed.andrevv.com/" class="install">Install Theme</a>{/block:IfShowInstallThemeButton}
     <div class="container {block:IndexPage}index-page{/block:IndexPage}">
+      {block:IfHeaderBackgroundDisplay}
+      <header>
+      {/block:IfHeaderBackgroundDisplay}
       <div class="title {block:IndexPage}index-title{/block:IndexPage}">
         <div class="title-text">
-          <h1><a href="/">{Title}</a></h1>
+
+          {block:ShowAvatar}
+            <a href="/"><img src="{PortraitURL-96}" class="avatar {AvatarShape}" /></a>
+          {/block:ShowAvatar}
+
+          <h1><a href="/">
+            {block:IfHeaderLogoImage}
+            <img src="{image:Header Logo}" />
+            {/block:IfHeaderLogoImage}
+            {block:IfNotHeaderLogoImage}
+            {Title}
+            {/block:IfNotHeaderLogoImage}
+          </a></h1>
           {block:IndexPage}
           {block:IfShowDescription}
           <h2>{Description}</h2>
@@ -957,6 +1116,10 @@ _gaq.push(['_trackPageview']);
           {/block:IndexPage}
         </div>
       </div>
+      {block:IfHeaderBackgroundDisplay}
+        </header>
+      {/block:IfHeaderBackgroundDisplay}
+
       {block:IfInfiniteScrolling}
       <div class="autopagerize_page_element">
       {/block:IfInfiniteScrolling}
@@ -1011,7 +1174,7 @@ _gaq.push(['_trackPageview']);
           </div>
           {/block:Audio}
           {block:Photo}
-          <div class="photo post-bg {select:Photos}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
+          <div class="photo post-bg {select:Photo Background Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
             {block:Caption}<div class="caption">
               <span>{Caption}</span>
             </div>{/block:Caption}
@@ -1021,7 +1184,7 @@ _gaq.push(['_trackPageview']);
 
           {block:Photoset}
             {block:Photos}
-            <div class="post-bg {select:Photos}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
+            <div class="post-bg {select:Photo Background Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
               
             </div>
             {/block:Photos}
@@ -1029,7 +1192,7 @@ _gaq.push(['_trackPageview']);
           {/block:Photoset}
 
           {block:Panorama}
-            <div class="post-bg panorama {select:Photos}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
+            <div class="post-bg panorama {select:Photo Background Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
               {block:Caption}<span class="caption"><span>{Caption}</span></span>{/block:Caption} 
             </div>               
           {/block:Panorama}
@@ -1050,10 +1213,14 @@ _gaq.push(['_trackPageview']);
           {block:Answer}
           <div class="answer text post-bg">
             <div class="text-block">
-              <img class="answer-avatar" src="{AskerPortraitURL-40}" />
-              {Asker}
-              {Question}
-              {Answer}
+              <div>
+                <img class="answer-avatar" src="{AskerPortraitURL-40}" />
+                {Asker}
+                {Question}
+              </div>
+              <div>
+                <img class="answer-avatar" src="{PortraitURL-40}" />{Answer}
+              </div>
             </div>
           </div>
           {/block:Answer}
@@ -1173,6 +1340,7 @@ _gaq.push(['_trackPageview']);
         }());
     </script>
     {/block:IfDisqusShortname}
+    {block:IfShowMenu}
     <div class="MenuStuff
       {block:AskEnabled}Ask{/block:AskEnabled}
       {block:SubmissionsEnabled}Submit{/block:SubmissionsEnabled}
@@ -1182,6 +1350,9 @@ _gaq.push(['_trackPageview']);
       <div id="menu">
         <h3>Menu</h3>
         <ul class="{block:AskEnabled}Ask{/block:AskEnabled} {block:SubmissionsEnabled}Submit{/block:SubmissionsEnabled}">
+          {block:IfShowArchiveLink}
+            <li><a href="/archive">Archive</a></li>
+          {/block:IfShowArchiveLink}
           {block:AskEnabled}
             <li><a href="/ask">{AskLabel}</a></li>
           {/block:AskEnabled}
@@ -1195,11 +1366,12 @@ _gaq.push(['_trackPageview']);
           </ul>
         {/block:HasPages}
 
-
       </div>
       <label for="ShowMenu">
         <span></span>
       </label>
+      {/block:IfShowMenu}
+
     </div>
   </body>
 </html>
