@@ -36,6 +36,7 @@
 <meta name="color:Chat post background" content="#0ba5e6"/>
 <meta name="color:Link post background" content="#1de7a2"/>
 <meta name="color:Audio post background" content="#9575B2"/>
+<meta name="color:Answer post background" content="#FF4444"/>
 
 <!-- OPTIONS -->
 <meta name="if:Infinite scrolling" content="0">
@@ -199,6 +200,11 @@ body, html {
   background-size: 32px;
 }
 
+.post.post-answer {
+  background-color: {Color:Answer post background};
+  height: auto;
+  min-height: 100%;
+}
 
 .post-text + .post-text,
 .post-quote + .post-quote,
@@ -314,6 +320,40 @@ a {
   bottom: 10px;
   left: 10px;
 }
+
+.meta.right {
+  right: 10px;
+  left: auto;
+}
+
+.meta.right li {
+  float: left;
+}
+
+.meta.right li + li {
+  padding-left: 0;
+}
+
+.meta.right.dark {
+  display: block;
+}
+
+.meta.right.light {
+  display: none;
+}
+
+.Light .meta.right.dark {
+  display: none;
+}
+
+.Light .meta.right.light {
+  display: block;
+}
+
+.like_toggle {
+  height: 13px;
+}
+
 
 .Light .meta{
   background: rgba(255,255,255,0.3);
@@ -674,7 +714,7 @@ label[for=ShowMenu] span:after {
 }
 
 .text-block a {
-  color: white;
+  text-decoration: underline;
   position: relative;
 }
 
@@ -701,15 +741,6 @@ label[for=ShowMenu] span:after {
 .conversation li.odd {
   background: rgba(255,255,255,0.75);
   color: black;
-}
-
-.answer-avatar {
-  float: left;
-  margin: 0 20px 20px 0;
-}
-
-.Circle .answer-avatar {
-  border-radius: 100px;
 }
 
 /* ==========================================================================
@@ -773,7 +804,6 @@ article.photoset:last-child {
 }
 
 .quote .source a {
-  color: white;
   text-decoration: underline;
 }
 
@@ -828,6 +858,64 @@ article.photoset:last-child {
 }
 
 /* ==========================================================================
+   Answer Posts
+   ========================================================================== */
+
+.answer-avatar {
+  float: left;
+  margin: 0 20px 20px 0;
+}
+
+.answer div {
+  padding: 80px 0;
+}
+
+.post-answer .text-block {
+  margin: 0 auto;
+  width: 50%;
+  min-width: 500px;
+  font-size: 18px;
+  padding: 20px;
+  position: relative;
+}
+
+.post-answer .asker {
+  display: block;
+  text-align: right;
+}
+
+.post-answer .asker em {
+  opacity: 0.7;
+}
+
+.post-answer .asker em:hover {
+  opacity: 1;
+}
+
+.post-answer .answer-text {
+  display: block;
+  margin-top: 6px;
+  padding-left: 60px;
+}
+
+.post-answer .answer-text *:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.post-answer .asker a {
+  display: inline-block;
+}
+
+.post-answer .question {
+  background: rgba(0,0,0,0.1);
+}
+
+.Circle .answer-avatar {
+  border-radius: 100px;
+}
+
+/* ==========================================================================
    Post Notes
    ========================================================================== */
 
@@ -856,19 +944,6 @@ article.photoset:last-child {
 .notes li .avatar_frame img {
   width: 32px;
   height: 32px;
-}
-
-.notes li .action {
-  color: #ccc;
-}
-
-.notes li .action a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.notes li .action a:hover {
-  text-decoration: underline;
 }
 
 #disqus_block {
@@ -1211,15 +1286,18 @@ _gaq.push(['_trackPageview']);
           </div>
           {/block:Chat}
           {block:Answer}
-          <div class="answer text post-bg">
-            <div class="text-block">
-              <div>
+          <div class="answer post-bg">
+            <div class="question">
+              <div class="text-block">
                 <img class="answer-avatar" src="{AskerPortraitURL-40}" />
-                {Asker}
-                {Question}
+                <span class="answer-text">{Question}</span>
+                <span class="asker"><em>&mdash; {Asker}</em></span>
               </div>
-              <div>
-                <img class="answer-avatar" src="{PortraitURL-40}" />{Answer}
+            </div>
+            <div class="answer">
+              <div class="text-block">
+                <img class="answer-avatar" src="{PortraitURL-40}" />
+                <span class="answer-text">{Answer}</span>
               </div>
             </div>
           </div>
@@ -1251,6 +1329,30 @@ _gaq.push(['_trackPageview']);
               </ul>
             </div>
           {/block:PermalinkPage}
+
+          <div class="meta right light">
+            <ul>
+                <li>
+                  {LikeButton size="12" color="black"}
+                </li>
+                <li>
+                  {ReblogButton size="12" color="black"}
+                </li>
+              </li>
+            </ul>
+          </div>
+
+          <div class="meta right dark">
+            <ul>
+                <li>
+                  {LikeButton size="12" color="white"}
+                </li>
+                <li>
+                  {ReblogButton size="12" color="white"}
+                </li>
+              </li>
+            </ul>
+          </div>
 
         </article>
         {/block:Posts}
