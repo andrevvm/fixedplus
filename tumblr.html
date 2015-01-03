@@ -42,6 +42,7 @@
 <meta name="if:Infinite scrolling" content="0">
 <meta name="if:Show description" content="1"/>
 <meta name="if:Show captions on index" content="1"/>
+<meta name="if:Show search" content="1"/>
 <meta name="if:Show archive link" content="1"/>
 <meta name="if:Show menu" content="1"/>
 
@@ -63,6 +64,8 @@
 <meta name="if:Header background display" content="1"/>
 <meta name="image:Header logo" content="" />
 <meta name="text:Header height" content="100%"/>
+<meta name="text:Header title font size" content="56px"/>
+<meta name="text:Header description size" content="24px"/>
 <meta name="select:Header background attachment" content="scroll" title="Scroll" />
 <meta name="select:Header background attachment" content="fixed" title="Fixed" />
 <meta name="select:Photo background attachment" content="fixed" title="Fixed" />
@@ -169,7 +172,7 @@ body, html {
 
 .post-text {
   background-color: {Color:Text post background};
-  color: {Color:Text post text;}
+  color: {Color:Text post text};
 }
 
 .post.post-text {
@@ -201,7 +204,8 @@ body, html {
 }
 
 .post.post-answer {
-  background-color: {Color:Answer post background};
+  background-color: {Color:Text post background};
+  color: {Color:Text post text};
   height: auto;
   min-height: 100%;
 }
@@ -229,6 +233,12 @@ body, html {
   min-height: 480px;
 }
 
+.photo > a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .post.post-photoset {
   height: auto;
 }
@@ -251,7 +261,7 @@ body, html {
 
 .title h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: {text:Header title font size};
   word-wrap: break-word;
 }
 
@@ -263,19 +273,11 @@ body, html {
   color: {color:Header title hover};
 }
 
-.title.index-title h1 {
-  font-size: 56px;
-}
-
 .title h2 {
   margin: 0 auto;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: {text:Header description font size};
   font-weight: normal;
-}
-
-.title.index-title h2 {
-  font-size: 24px;
 }
 
 .title a {
@@ -352,6 +354,10 @@ a {
 
 .like_toggle {
   height: 13px;
+}
+
+.like_button iframe {
+  cursor: pointer;
 }
 
 
@@ -496,7 +502,7 @@ header {
   position: relative;
   background-color: {color:Header Background Color};
   {block:ShowHeaderImage} 
-  background-image: url('{HeaderImage}');
+    background-image: url('{HeaderImage}');
   {/block:ShowHeaderImage} 
   background-attachment: {select:Header background attachment};
   background-size: {select:Header Background Size};
@@ -509,9 +515,13 @@ header .title {
   height: 100%;
 }
 
-header .title.index-title .title-text {
+header .title .title-text {
   top: 45%;
   -webkit-transform: translate(0, -50%);
+}
+
+.logo {
+  max-width: 50%;
 }
 
 img.avatar {
@@ -987,7 +997,7 @@ article.photoset:last-child {
   }
 
   .title a {
-    opacity: 0.8;
+    opacity: 1;
   }
 
   .title a:hover {
@@ -1007,7 +1017,7 @@ article.photoset:last-child {
   }
 
   .title.index-title .title-text {
-    top: 20%;
+    top: 45%;
   }
 
   .title h2 {
@@ -1178,7 +1188,7 @@ _gaq.push(['_trackPageview']);
 
           <h1><a href="/">
             {block:IfHeaderLogoImage}
-            <img src="{image:Header Logo}" />
+            <img src="{image:Header Logo}" class="logo" />
             {/block:IfHeaderLogoImage}
             {block:IfNotHeaderLogoImage}
             {Title}
@@ -1250,6 +1260,8 @@ _gaq.push(['_trackPageview']);
           {/block:Audio}
           {block:Photo}
           <div class="photo post-bg {select:Photo Background Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
+            
+            {LinkOpenTag}{LinkCloseTag}
             {block:Caption}<div class="caption">
               <span>{Caption}</span>
             </div>{/block:Caption}
@@ -1452,6 +1464,14 @@ _gaq.push(['_trackPageview']);
       <div id="menu">
         <h3>Menu</h3>
         <ul class="{block:AskEnabled}Ask{/block:AskEnabled} {block:SubmissionsEnabled}Submit{/block:SubmissionsEnabled}">
+          {block:IfShowSearch}
+            <li>
+              <form action="/search" method="get">
+                  <input type="text" name="q" value="{SearchQuery}"/>
+                  <input type="submit" value="Search"/>
+              </form>
+            </li>
+          {/block:IfShowSearch}
           {block:IfShowArchiveLink}
             <li><a href="/archive">Archive</a></li>
           {/block:IfShowArchiveLink}
