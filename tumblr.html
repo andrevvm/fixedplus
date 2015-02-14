@@ -181,7 +181,7 @@ body, html {
 
 .post {
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   margin: 0 auto;
   position: relative;
   background-color: {Color:Text post background};
@@ -256,14 +256,11 @@ body, html {
 .post-bg {
   width: 100%;
   height: auto;
+  min-height: 100vh;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-}
-
-.photo, .photoset, .panorama, .audio {
-  min-height: 480px;
 }
 
 .photo > a,
@@ -279,7 +276,7 @@ body, html {
 }
 
 .post.post-photoset .post-bg {
-  height: 1000px;
+  height: 100vh;
 }
 
 
@@ -382,14 +379,14 @@ a {
   width: 12px;
   height: 14px;
   position: relative;
-  top: 1px;
+  top: 2px;
 }
 
 .reblog_button {
   width: 12px;
   height: 14px !important;
   position: relative;
-  top: 1px;
+  top: 2px;
 }
 
 .Light .meta{
@@ -490,11 +487,9 @@ a {
   border-radius: 20px;
 }
 
-{block:IfNotShowCaptionsOnIndex}
 .index-page .caption {
   display: none;
 }
-{/block:IfNotShowCaptionsOnIndex}
 
 nav {
   background: {color:Footer background};
@@ -940,8 +935,8 @@ article.photoset:last-child {
   width: 240px;
   height: 100px;
   position: relative;
-  top: 180px;
-  -webkit-transform: translate(0,0) !important;
+  top: 50vh;
+  -webkit-transform: translate(0,-50%) !important;
 }
 
 .tumblr_video_container {
@@ -1062,8 +1057,10 @@ article.photoset:last-child {
 .notes li {
   display: block;
   padding: 10px;
-  text-align: center;
+  text-align: left;
   border-top: 1px solid rgba(0,0,0,0.05);
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .notes li:nth-child(odd) {
@@ -1156,6 +1153,7 @@ article.photoset:last-child {
     padding: 10px 0;
   }
 
+
   .autopagerize_page_element {
     position: relative;
   }
@@ -1163,7 +1161,7 @@ article.photoset:last-child {
   .post {
     width: 100%;
     height: 100%;
-    min-height: 480px;
+    min-height: 240px;
   }
 
   .post.inline {
@@ -1211,6 +1209,12 @@ article.photoset:last-child {
     font-size: 20px;
   }
 
+  {block:IfShowCaptionsOnIndex}
+  .index-page .caption {
+    display: inline-block;
+  }
+  {/block:IfShowCaptionsOnIndex}
+
 
   .text-block {
     font-size: 20px;
@@ -1227,8 +1231,6 @@ article.photoset:last-child {
   .tumblr_audio_player {
     width: 100%;
     height: 20%;
-    position: relative;
-    top: 40%;
   }
 
   .post-bg.video iframe {
