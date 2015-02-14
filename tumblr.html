@@ -68,12 +68,15 @@
 <meta name="select:Header background size" content="contain" title="Tile">
 
 <!-- Image Options -->
+<meta name="text:Avatar size" content="64px"/>
 <meta name="text:Avatar border size" content="5px"/>
 <meta name="image:Header logo" content="" />
 <meta name="select:Header height" content="50vh" title="Half screen"/>
+<meta name="select:Header height" content="25vh" title="Quarter screen"/>
 <meta name="select:Header height" content="100vh" title="Full screen"/>
 <meta name="text:Header title font size" content="56px"/>
 <meta name="text:Header description size" content="24px"/>
+<meta name="text:Logo width" content=""/>
 <meta name="select:Header background attachment" content="scroll" title="Scroll" />
 <meta name="select:Header background attachment" content="fixed" title="Fixed" />
 <meta name="select:Header text attachment" content="scroll" title="Scroll" />
@@ -171,6 +174,7 @@ body, html {
 }
 
 .container {
+  position: relative;
   width: auto;
   height: auto;
   -webkit-transition: all 200ms ease-in-out;
@@ -191,6 +195,16 @@ body, html {
 
 .post a {
   color: inherit;
+}
+
+.post.single.post-text {
+  height: auto;
+  min-height: 0;
+}
+
+.post.single.post-text .post-bg {
+  height: auto;
+  min-height: 0;
 }
 
 .post-text {
@@ -294,10 +308,12 @@ body, html {
   margin: 0;
   font-size: {text:Header title font size};
   word-wrap: break-word;
+  pointer-events: none;
 }
 
 .title h1 a {
   color: {color:Header title};
+  pointer-events: auto;
 }
 
 .title a:hover {
@@ -450,7 +466,7 @@ a {
 
 .caption {
   font-size: 14px;
-  line-height: 1.5em;
+  line-height: 22px;
   font-weight: bold;
   color: #FFF;
   position: absolute;
@@ -470,7 +486,7 @@ a {
 
 .caption > span {
   display: inline-block;
-  padding: .5em 1em;
+  padding: 10px 15px;
   background: black;
   margin: 0 20%;
 }
@@ -553,12 +569,17 @@ header {
   z-index: 10;
 }
 
+.permalink-page header {
+  max-height: 50vh;
+  min-height: 50vh;
+}
+
 
 header .title {
   height: auto;
   position: relative;
   margin: auto;
-  padding: 20px 0;
+  padding: 50px 0;
 }
 
 .title .title-text {
@@ -573,16 +594,36 @@ header .title .title-text.scroll {
 .title .title-text.fixed {
   position: fixed;
   width: 100%;
-  top: 20px;
+  pointer-events: none;
+  top: 50%;
+  -webkit-transform: translate(0,-50%);
+  -moz-transform: translate(0,-50%);
+  -ms-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+}
+
+.title .title-text a {
+  outline: none;
+}
+
+.title .title-text.fixed a {
+  pointer-events: auto;
 }
 
 .logo {
   max-width: 50%;
+  {block:IfLogoWidth}
+  width: {text:Logo Width};
+  {/block:IfLogoWidth}
+  display: block;
+  margin: auto;
 }
 
 img.Avatar {
   margin: 10px;
   border: {text:Avatar Border Size} solid {color:Avatar border color};
+  width: {text:Avatar Size};
+  height: {text:Avatar Size};
 }
 
 img.Avatar.circle {
@@ -775,11 +816,7 @@ label[for=ShowMenu] span:after {
 }
 
 #ShowMenu:checked ~ .container {
-  -webkit-transform: translate(150px, 0);
-  -moz-transform: translate(150px, 0);
-  -o-transform: translate(150px, 0);
-  -ms-transform: translate(150px, 0);
-  transform: translate(150px, 0);
+  left: 100px;
 }
 
 #ShowMenu:checked ~ .MenuStuff label[for=ShowMenu] span:before,
@@ -799,7 +836,7 @@ label[for=ShowMenu] span:after {
   font-size: 16px;
   line-height: 1.5em;
   width: 50%;
-  padding: 50px 0;
+  padding: 50px 0 60px;
   margin: 0 auto;
   min-width: 300px;
 }
@@ -957,15 +994,25 @@ article.photoset:last-child {
   display: block;
   width: 80vw;
   height: 80vh;
+  width: -webkit-calc(100vw - 10vw);
+  height: -webkit-calc(100vh - 10vw);
+  width: -moz-calc(100vw - 10vw);
+  height: -moz-calc(100vh - 10vw);
+  width: calc(100vw - 10vw);
+  height: calc(100vh - 10vw);
   margin: 0 auto;
   position: relative;
-  left: 40%;
+  left: 45%;
   top: 50vh;
   -webkit-transform: translate(-50%,-50%);
   -moz-transform: translate(-50%,-50%);
   -o-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
+}
+
+.post-bg.video > iframe.instagram-media {
+  left: 50%;
 }
 
 .video {
@@ -1048,7 +1095,7 @@ article.photoset:last-child {
    ========================================================================== */
 
 .notes {
-  padding: 0;
+  padding-bottom: 40px;
   margin: 0;
   background: {color:Footer background};
   color: {color:Footer text};
@@ -1122,6 +1169,7 @@ article.photoset:last-child {
   .container {
     width: 100%;
     height: 100%;
+    left: 0;
   }
 
   .title a {
@@ -1163,6 +1211,7 @@ article.photoset:last-child {
     height: 100%;
     min-height: 240px;
   }
+
 
   .post.inline {
     height: auto;
@@ -1235,8 +1284,6 @@ article.photoset:last-child {
 
   .post-bg.video iframe {
     display: block;
-    width: 80vw;
-    height: 80vh;
     margin: 0 auto;
   }
 
@@ -1354,7 +1401,7 @@ _gaq.push(['_trackPageview']);
     </div>
     {/block:IfShowMenu}
 
-    <div class="container {block:IndexPage}index-page{/block:IndexPage} {block:IfInfiniteScrolling}infinite-scrolling{/block:IfInfiniteScrolling}">
+    <div class="container {block:IndexPage}index-page{/block:IndexPage} {block:PermalinkPage}permalink-page{/block:PermalinkPage} {block:IfInfiniteScrolling}infinite-scrolling{/block:IfInfiniteScrolling}">
       {block:IfShowHeaderBackground}
       <header>
       {/block:IfShowHeaderBackground}
