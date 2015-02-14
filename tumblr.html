@@ -79,8 +79,12 @@
 <meta name="text:Logo width" content=""/>
 <meta name="select:Header background attachment" content="scroll" title="Scroll" />
 <meta name="select:Header background attachment" content="fixed" title="Fixed" />
-<meta name="select:Header text attachment" content="scroll" title="Scroll" />
-<meta name="select:Header text attachment" content="fixed" title="Fixed" />
+<meta name="select:Header contents attachment" content="scroll" title="Scroll" />
+<meta name="select:Header contents attachment" content="fixed" title="Fixed" />
+<meta name="select:Header contents position" content="center" title="Center" />
+<meta name="select:Header contents position" content="top" title="Top" />
+<meta name="select:Header contents position" content="bottom" title="Bottom" />
+
 <meta name="select:Photo background attachment" content="fixed" title="Fixed" />
 <meta name="select:Photo background attachment" content="scroll" title="Scroll" />
 
@@ -204,7 +208,7 @@ body, html {
 
 .post.single.post-text .post-bg {
   height: auto;
-  min-height: 0;
+  min-height: 50vh;
 }
 
 .post-text {
@@ -302,6 +306,7 @@ body, html {
   width: 100%;
   z-index: 100;
   color: {color:Header title};
+  padding: 30px 0;
 }
 
 .title h1 {
@@ -574,27 +579,23 @@ header {
   min-height: 50vh;
 }
 
-
 header .title {
   height: auto;
   position: relative;
   margin: auto;
-  padding: 50px 0;
 }
 
-.title .title-text {
-  position: relative;
-  top: 20px;
+header .title.scroll.top {
+  margin: 0;
 }
 
-header .title .title-text.scroll {
-  top: 0;
+header .title.scroll.bottom {
+  margin: auto auto 0;
 }
 
-.title .title-text.fixed {
+.title.fixed .title-text {
   position: fixed;
   width: 100%;
-  pointer-events: none;
   top: 50%;
   -webkit-transform: translate(0,-50%);
   -moz-transform: translate(0,-50%);
@@ -602,11 +603,57 @@ header .title .title-text.scroll {
   transform: translate(0,-50%);
 }
 
-.title .title-text a {
-  outline: none;
+.title.fixed.top .title-text {
+  top: 30px;
+  -webkit-transform: translate(0,0);
+  -moz-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  transform: translate(0,0);
 }
 
-.title .title-text.fixed a {
+.title.fixed.bottom .title-text {
+  top: auto;
+  bottom: 30px;
+  -webkit-transform: translate(0,0);
+  -moz-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  transform: translate(0,0);
+}
+
+.title.scroll.no-header {
+  top: 50%;
+  -webkit-transform: translate(0,-50%);
+  -moz-transform: translate(0,-50%);
+  -ms-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+}
+
+.title.scroll.no-header.top {
+  top: 0;
+  -webkit-transform: translate(0,0);
+  -moz-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  transform: translate(0,0);
+}
+
+.title.scroll.no-header.bottom {
+  top: auto;
+  bottom: 0;
+  -webkit-transform: translate(0,0);
+  -moz-transform: translate(0,0);
+  -ms-transform: translate(0,0);
+  transform: translate(0,0);
+}
+
+.title,
+.title .title-text {
+  pointer-events: none;
+}
+
+.title .title-text a,
+.title .title-text img,
+.title .title-text span {
+  outline: none;
   pointer-events: auto;
 }
 
@@ -705,10 +752,11 @@ img.Avatar.circle {
 
 #menu li {
   border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 #menu form {
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 #menu li a {
@@ -816,7 +864,7 @@ label[for=ShowMenu] span:after {
 }
 
 #ShowMenu:checked ~ .container {
-  left: 100px;
+  /*left: 100px; */
 }
 
 #ShowMenu:checked ~ .MenuStuff label[for=ShowMenu] span:before,
@@ -839,6 +887,7 @@ label[for=ShowMenu] span:after {
   padding: 50px 0 60px;
   margin: 0 auto;
   min-width: 300px;
+  text-align: center;
 }
 
 .text-block blockquote {
@@ -969,7 +1018,7 @@ article.photoset:last-child {
 }
 
 .tumblr_audio_player {
-  width: 240px;
+  width: 100%;
   height: 100px;
   position: relative;
   top: 50vh;
@@ -1172,24 +1221,8 @@ article.photoset:last-child {
     left: 0;
   }
 
-  .title a {
-    opacity: 1;
-  }
-
-  .title a:hover {
-    opacity: 1;
-  }
-
   .title h1 {
     word-wrap: normal;
-  }
-
-  .title.index-title {
-    padding: 0;
-  }
-
-  .title.index-title a {
-    opacity: 1;
   }
 
   .title h2 {
@@ -1200,7 +1233,6 @@ article.photoset:last-child {
   .title-text {
     padding: 10px 0;
   }
-
 
   .autopagerize_page_element {
     position: relative;
@@ -1275,11 +1307,6 @@ article.photoset:last-child {
     width: 30%;
     margin: 0 auto;
     height: 100%;
-  }
-
-  .tumblr_audio_player {
-    width: 100%;
-    height: 20%;
   }
 
   .post-bg.video iframe {
@@ -1405,8 +1432,8 @@ _gaq.push(['_trackPageview']);
       {block:IfShowHeaderBackground}
       <header>
       {/block:IfShowHeaderBackground}
-      <div class="title {block:IndexPage}index-title{/block:IndexPage}">
-        <div class="title-text {select:Header text attachment}">
+      <div class="title {block:IndexPage}index-title{/block:IndexPage} {select:Header contents attachment} {select:Header contents position} {block:IfNotShowHeaderBackground}no-header{/block:IfNotShowHeaderBackground}">
+        <div class="title-text">
 
           {block:ShowAvatar}
             <a href="/"><img src="{PortraitURL-96}" class="Avatar {AvatarShape}" /></a>
@@ -1423,7 +1450,7 @@ _gaq.push(['_trackPageview']);
           {/block:IfShowTitle}
           {block:IndexPage}
           {block:IfShowDescription}
-          <h2>{Description}</h2>
+          <h2><span>{Description}</span></h2>
           {/block:IfShowDescription}
           {/block:IndexPage}
         </div>
@@ -1478,8 +1505,13 @@ _gaq.push(['_trackPageview']);
           </div>
           {/block:Video}
           {block:Audio}
-          <div class="audio post-bg" {block:AlbumArt}style="background-image: url({AlbumArtURL})"{/block:AlbumArt}>                   
-            {AudioPlayerBlack}
+          <div class="audio post-bg" {block:AlbumArt}style="background-image: url({AlbumArtURL})"{/block:AlbumArt}>
+            {block:IfNotDarkUITheme}                 
+              {AudioPlayerWhite}
+            {/block:IfNotDarkUITheme}
+            {block:IfDarkUITheme}                 
+              {AudioPlayerBlack}
+            {/block:IfDarkUITheme}
             {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           </div>
           {/block:Audio}
