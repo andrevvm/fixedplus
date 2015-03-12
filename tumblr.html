@@ -43,11 +43,16 @@
 <meta name="color:Link post text" content="{TitleColor}"/>
 <meta name="color:Audio and Video post background" content="{BackgroundColor}"/>
 <meta name="color:Answer post background" content="{BackgroundColor}"/>
+<meta name="color:Answer post text" content="{TitleColor}"/>
 <meta name="color:Caption background" content="{AccentColor}"/>
 <meta name="color:Caption text" content="{BackgroundColor}"/>
 
 <meta name="color:Footer background" content="{BackgroundColor}"/>
 <meta name="color:Footer text" content="{TitleColor}"/>
+
+<!-- FONT OPTIONS -->
+<meta name="font:Body font" content="{TitleFont}"/>
+<meta name="font:Menu font" content="{TitleFont}"/>
 
 <!-- SELECT OPTIONS -->
 
@@ -64,8 +69,8 @@
 <meta name="select:Header image size" content="cover" title="Fill Screen">
 <meta name="select:Header image size" content="contain" title="Tile">
 <meta name="select:Header image size" content="auto" title="Tile - no stretch">
-<meta name="select:Header image attachment" content="fixed" title="Fixed" />
 <meta name="select:Header image attachment" content="scroll" title="Scroll" />
+<meta name="select:Header image attachment" content="fixed" title="Fixed" />
 <meta name="select:Header contents attachment" content="scroll" title="Scroll" />
 <meta name="select:Header contents attachment" content="fixed" title="Fixed" />
 <meta name="select:Header contents position" content="center" title="Center" />
@@ -81,25 +86,23 @@
 <meta name="select:Photo image attachment" content="fixed" title="Fixed" />
 <meta name="select:Photo image attachment" content="scroll" title="Scroll" />
 
+<meta name="select:Captions on index" content="caption-background" title="With background" />
+<meta name="select:Captions on index" content="caption-transparent" title="Just text" />
+<meta name="select:Captions on index" content="caption-hide" title="None" />
+
 <!-- BOOLEAN OPTIONS -->
 <meta name="if:Infinite scrolling" content="0">
-<meta name="if:Show title" content="1"/>
-<meta name="if:Show description" content="1"/>
 <meta name="if:Avatar above text" content="1"/>
 <meta name="if:Show menu" content="1"/>
-<meta name="if:Show search" content="1"/>
-<meta name="if:Show archive link" content="1"/>
+<meta name="if:Show search in menu" content="1"/>
+<meta name="if:Show archive link in menu" content="1"/>
 <meta name="if:Show like button" content="1"/>
 <meta name="if:Show reblog button" content="1"/>
 <meta name="if:Show permalink button" content="1"/>
-<meta name="if:Show captions on index" content="1"/>
+<meta name="if:Fullscreen videos posts" content="1"/>
 <meta name="if:Show install theme button" content="0"/>
 
 <meta name="if:Dark UI Theme" content="0" >
-
-<!-- FONT OPTIONS -->
-<meta name="font:Body font" content="{TitleFont}"/>
-<meta name="font:Menu font" content="{TitleFont}"/>
 
 <!-- TEXT OPTIONS -->
 <meta name="text:Avatar size" content="96px"/>
@@ -107,6 +110,7 @@
 
 <meta name="text:Header title font size" content="56px"/>
 <meta name="text:Header description font size" content="24px"/>
+<meta name="text:Caption font size" content="12px"/>
 <meta name="text:Logo width" content="auto"/>
 
 <meta name="text:Website URL" content=""/>
@@ -232,9 +236,15 @@ body, html {
 .post.single.post-text {
   height: auto;
   min-height: 0;
+  border: 0;
 }
 
 .post.single.post-text .post-bg {
+  height: auto;
+  min-height: 100vh;
+}
+
+header + .post.single.post-text .post-bg {
   height: auto;
   min-height: 50vh;
 }
@@ -274,17 +284,8 @@ body, html {
 }
 
 .post.post-answer {
-  background-color: {Color:Text post background};
-  color: {Color:Text post text};
-}
-
-.post-text,
-.post-quote,
-.post-link,
-.post-chat,
-.post-video {
-  border-top: 1px solid rgba(0,0,0,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background-color: {Color:Answer post background};
+  color: {Color:Answer post text};
 }
 
 .post-bg {
@@ -344,6 +345,10 @@ body, html {
   pointer-events: none;
 }
 
+.title a + h1 {
+  margin-top: 10px;
+}
+
 .title h1 a {
   color: {color:Header title};
   pointer-events: auto;
@@ -374,7 +379,7 @@ a {
 }
 
 #disqus_block a  {
-  color: #0BA5E6;
+  color: {color:Footer text};
 }
 
 .arrow-up {
@@ -412,6 +417,7 @@ a {
 
 .permalink-page .meta.left.float {
   left: 0;
+  bottom: 0;
 }
 
 .permalink-page .meta {
@@ -440,6 +446,10 @@ a {
   top: 2px;
 }
 
+.permalink-page .meta.left .like_button {
+  margin-right: 2px;
+}
+
 .permalink-page .meta.right {
   display: none;
 }
@@ -453,6 +463,10 @@ a {
   max-height: 36px;
   overflow: hidden;
   transition: all 200ms ease-in-out;
+}
+
+.index-page .meta.left.hide-permalink {
+  display: none;
 }
 
 .index-page .meta.right {
@@ -552,8 +566,7 @@ a {
 }
 
 .caption {
-  font-size: 12px;
-  line-height: 16px;
+  line-height: 1.2em;
   font-weight: bold;
   position: absolute;
   bottom: 10px;
@@ -561,6 +574,7 @@ a {
   display: inline-block;
   text-align: center;
   color: {color:Caption text};
+  font-size: {text:Caption font size};
 }
 
 .caption a {
@@ -568,12 +582,12 @@ a {
 }
 
 .caption p, .caption blockquote {
-  margin: 0;
+  margin: 11px 0;
 }
 
 .caption > span {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 0px 15px;
   margin: 0 20%;
   background: {color:Caption background};
 }
@@ -590,8 +604,6 @@ a {
   display: block;
   position: relative;
   width: 100%;
-  font-size: 14px;
-  line-height: 20px;
   bottom: auto;
 }
 
@@ -600,16 +612,17 @@ a {
   width: auto;
   margin: 0;
   border-radius: 0;
-  padding-left: 20%;
-  padding-right: 20%;
+  padding: 0.6em 20%;
+  font-size: 1.3em;
 }
 
 .tags {
-  font-size: 14px;
   padding: 1em 20% 1.2em;
+  text-align: center;
   background: {color:Caption background};
   color: {color:Caption text};
-  text-align: center;
+  font-size: {text: Caption font size};
+
 }
 
 .caption + .tags {
@@ -625,7 +638,13 @@ a {
   opacity: 1;
 }
 
+footer {
+  position: relative;
+  z-index: 101;
+}
+
 nav {
+  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
   background: {color:Footer background};
   color: {color:Footer text};
   font-size: 42px;
@@ -638,7 +657,8 @@ nav a,
   color: {color:Footer text};
   text-decoration: none;
   text-align: center;
-  line-height: 74px;
+  line-height: 76px;
+  height: 70px;
   opacity: 0.8;
 }
 
@@ -834,12 +854,16 @@ img.Avatar.circle {
 }
 
 #menu input[type=text] {
-  border:0;
-  background:none;
-  padding: 5px 0;
+  width: 75%;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 5px 0 0 1.375em;
   border-bottom: 1px solid {Color:Menu Text};
   color: {Color:Menu Text};
-  width: 75%;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #menu input[type=text]:focus {
@@ -865,7 +889,8 @@ img.Avatar.circle {
   text-transform: uppercase;
   letter-spacing: 2px;
   line-height: 55px;
-  margin: 0;
+  height: 55px;
+  margin: 0 auto;
 /*  border-bottom: 1px solid rgba(255,255,255,0.1);
 */}
 
@@ -884,6 +909,17 @@ img.Avatar.circle {
 */  line-height: 1em;
 }
 
+#menu li.pages {
+  border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+}
+
+#menu li.pages + li.pages {
+  border-top: 0;
+  padding-top: 0;
+}
+
 #menu li.Social {
   border: 0;
   padding: 10px 15px;
@@ -897,7 +933,7 @@ img.Avatar.circle {
 #menu form input {
   max-width: 320px;
   font-family: {font:Menu font};
-  text-align: left;
+  text-align: center;
 }
 
 #menu li a {
@@ -908,7 +944,7 @@ img.Avatar.circle {
   -o-transition: border 200ms;
   transition: border 200ms;
   display: block;
-  padding: 0.9em 15px 0.85em;
+  padding: 0.9em 1em 0.80em;
   outline: none;
   line-height: 1em;
   color: {Color:Menu Text};
@@ -942,6 +978,13 @@ img.Avatar.circle {
   opacity: 0;
   pointer-events: none;
 
+  display: box;
+  display: flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+
   -webkit-transform: translate(0, 0) scale(0.98);
   -moz-transform: translate(0, 0) scale(0.98);
   -o-transform: translate(0, 0) scale(0.98);
@@ -955,12 +998,23 @@ img.Avatar.circle {
   transition: all 300ms ease-in-out;
 }
 
+.Fullscreen #menu ul {
+  margin: auto;
+  position: relative;
+  top: -5%;
+}
+
+.Fullscreen #menu h3 {
+  display: none;
+}
+
 .Fullscreen #menu li {
   border: 0;
 }
 
 .Fullscreen #menu li a {
   display: inline-block;
+  padding-left: ;
 }
 
 .Fullscreen #menu ul,
@@ -1113,7 +1167,7 @@ label[for=ShowMenu] span:after {
 .search-results p {
   position: relative;
   margin: auto;
-  font-size: 5vmin;
+  font-size: 3vmin;
   text-align: center;
   width: 80%;
 }
@@ -1250,7 +1304,7 @@ label[for=ShowMenu] span:after {
 
 .audio_player {
   width: 240px;
-  margin: 0 auto;
+  margin: auto;
   height: 100px;
 }
 
@@ -1263,9 +1317,13 @@ label[for=ShowMenu] span:after {
 }
 
 .tumblr_video_container {
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: auto;
+  {block:IfFullscreenVideoPosts}
   width: 80vw !important;
   height: 80vh !important;
-  margin: auto;
+  {/block:IfFullscreenVideoPosts}
 }
 
 .tumblr_video_container iframe {
@@ -1292,20 +1350,18 @@ label[for=ShowMenu] span:after {
 
 .post-bg.video > iframe {
   display: block;
-  width: 80vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  margin: auto;
+  {block:IfFullscreenVideoPosts}
   width: -webkit-calc(100vw - 10vw);
   height: -webkit-calc(100vh - 10vw);
   width: -moz-calc(100vw - 10vw);
   height: -moz-calc(100vh - 10vw);
   width: calc(100vw - 10vw);
   height: calc(100vh - 10vw);
-  position: relative;
-  margin: auto;
-}
-
-.post-bg.video > iframe.instagram-media {
-  left: 50%;
+  {/block:IfFullscreenVideoPosts}
 }
 
 .video {
@@ -1399,11 +1455,11 @@ label[for=ShowMenu] span:after {
 
 .notes li {
   display: block;
-  padding: 10px;
-  text-align: left;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  max-width: 500px;
+  min-width: 300px;
+  padding: 10px 20%;
+  text-align: center;
   margin: 0 auto;
+  background: rgba(0,0,0,0.05);
 }
 
 .notes li:nth-child(odd) {
@@ -1426,8 +1482,8 @@ label[for=ShowMenu] span:after {
 }
 
 #disqus_block {
-  background:#f6f6f6;
   padding: 30px 0;
+  background:{color:Footer background};
 }
 
 #disqus_thread {
@@ -1657,11 +1713,14 @@ a.install {
     font-size: 20px;
   }
 
-  {block:IfShowCaptionsOnIndex}
-  .index-page .caption {
+  .index-page.caption-background .caption,
+  .index-page.caption-transparent .caption   {
     display: inline-block;
   }
-  {/block:IfShowCaptionsOnIndex}
+
+  .index-page.caption-transparent .caption > span {
+    background: none;
+  }
 
   .text-block {
     font-size: 20px;
@@ -1678,6 +1737,11 @@ a.install {
   .post-bg.video iframe {
     display: block;
     margin: auto;
+  }
+
+  .like_button {
+    top: 1px;
+    left: 3px;
   }
 
   #disqus_thread {
@@ -1697,6 +1761,12 @@ a.install {
     font-size: 24px;
     font-size: 2.2vmax;
   }
+
+  #menu form input {
+    max-width: 440px;
+  }
+
+
 }
 
 /* ---------- Small screen Responsive ---------- */
@@ -1713,6 +1783,14 @@ a.install {
   .quote .source,
   .link .source {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-device-width: 568px) {
+  header {
+    {block:IfHeaderImage} 
+    background-image: url('{HeaderImage-640}');
+    {/block:IfHeaderImage}
   }
 }
 
@@ -1749,20 +1827,20 @@ _gaq.push(['_trackPageview']);
       <div id="menu">
         <h3>Menu</h3>
         <ul class="{block:AskEnabled}Ask{/block:AskEnabled} {block:SubmissionsEnabled}Submit{/block:SubmissionsEnabled}">
-          {block:IfShowSearch}
+          {block:IfShowSearchInMenu}
             <li>
               <form action="/search" method="get">
                   <input type="text" name="q" value="{SearchQuery}"/>
                   <button type="submit"><i class="fa fa-search"></i></button>
               </form>
             </li>
-          {/block:IfShowSearch}
+          {/block:IfShowSearchInMenu}
           {block:PermalinkPage}
             <li><a href="/">{lang:Home}</a></li>
           {/block:PermalinkPage}
-          {block:IfShowArchiveLink}
+          {block:IfShowArchiveLinkInMenu}
             <li><a href="/archive">Archive</a></li>
-          {/block:IfShowArchiveLink}
+          {/block:IfShowArchiveLinkInMenu}
           {block:AskEnabled}
             <li><a href="/ask">{AskLabel}</a></li>
           {/block:AskEnabled}
@@ -1770,7 +1848,7 @@ _gaq.push(['_trackPageview']);
             <li><a href="/submit">{SubmitLabel}</a></li>
           {/block:SubmissionsEnabled}
           {block:HasPages}
-            {block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}
+            {block:Pages}<li class="pages"><a href="{URL}">{Label}</a></li>{/block:Pages}
           {/block:HasPages}
           <li class="Social">
             {block:IfWebsiteURL}
@@ -1814,7 +1892,7 @@ _gaq.push(['_trackPageview']);
     </div>
     {/block:IfShowMenu}
 
-    <div class="container {block:IndexPage}index-page{/block:IndexPage} {block:PermalinkPage}permalink-page{/block:PermalinkPage} {block:SearchPage}permalink-page{/block:SearchPage} {block:IfInfiniteScrolling}infinite-scrolling{/block:IfInfiniteScrolling}">
+    <div class="container {block:IndexPage}index-page{/block:IndexPage} {block:PermalinkPage}permalink-page{/block:PermalinkPage} {block:SearchPage}permalink-page{/block:SearchPage} {block:IfInfiniteScrolling}infinite-scrolling{/block:IfInfiniteScrolling} {select:Captions on index}">
       {block:ShowHeaderImage}
       <header>
       {/block:ShowHeaderImage} 
@@ -1824,7 +1902,7 @@ _gaq.push(['_trackPageview']);
           {block:ShowAvatar}{block:IfAvatarAboveText}
             <a href="/"><img src="{PortraitURL-128}" class="Avatar {AvatarShape}" /></a>
           {/block:IfAvatarAboveText}{/block:ShowAvatar}
-          {block:IfShowTitle}
+          {block:ShowTitle}
           <h1><a href="/">
             {block:IfHeaderLogoImage}
             <img src="{image:Header Logo}" class="logo" />
@@ -1833,11 +1911,11 @@ _gaq.push(['_trackPageview']);
             {Title}
             {/block:IfNotHeaderLogoImage}
           </a></h1>
-          {/block:IfShowTitle}
+          {/block:ShowTitle}
           {block:IndexPage}
-          {block:IfShowDescription}
+          {block:ShowDescription}
           <h2><span>{Description}</span></h2>
-          {/block:IfShowDescription}
+          {/block:ShowDescription}
           {/block:IndexPage}
           {block:ShowAvatar}{block:IfNotAvatarAboveText}
             <a href="/"><img src="{PortraitURL-128}" class="Avatar {AvatarShape}" /></a>
@@ -1991,7 +2069,7 @@ _gaq.push(['_trackPageview']);
           {/block:Answer}
           
           
-          <div class="meta left">
+          <div class="meta left {block:IfNotShowPermalinkButton}hide-permalink{block:IfNotShowPermalinkButton}">
             <ul>
               {block:IndexPage}
               <a href="{Permalink}">
@@ -2099,58 +2177,61 @@ _gaq.push(['_trackPageview']);
           <div class="holder"></div>
         </div>
 
+      <footer>
 
-      {block:Pagination}
-      <nav class="pages-nav">
-          {block:PreviousPage}
-          <a href="{PreviousPage}" class="back">
-              <span class="fa fa-long-arrow-left"></span>
-          </a>{/block:PreviousPage}{block:NextPage}<a href="{NextPage}" class="forward">
-              <span class="fa fa-long-arrow-right"></span>
-          </a>{/block:NextPage}
-          <div class="clear"></div>
-      </nav>
-      {/block:Pagination}
+        {block:Pagination}
+        <nav class="pages-nav">
+            {block:PreviousPage}
+            <a href="{PreviousPage}" class="back">
+                <span class="fa fa-long-arrow-left"></span>
+            </a>{/block:PreviousPage}{block:NextPage}<a href="{NextPage}" class="forward">
+                <span class="fa fa-long-arrow-right"></span>
+            </a>{/block:NextPage}
+            <div class="clear"></div>
+        </nav>
+        {/block:Pagination}
 
-      {block:PermalinkPagination}
-      <nav>
-          {block:PreviousPost}
-          <a href="{PreviousPost}" class="forward">
-              <span class="fa fa-long-arrow-right"></span>
-          </a>{/block:PreviousPost}{block:NextPost}<a href="{NextPost}" class="back">
-              <span class="fa fa-long-arrow-left"></span>
-          </a>{/block:NextPost}
-          <div class="clear"></div>
-      </nav>
-      {/block:PermalinkPagination}
+        {block:PermalinkPagination}
+        <nav>
+            {block:PreviousPost}
+            <a href="{PreviousPost}" class="forward">
+                <span class="fa fa-long-arrow-right"></span>
+            </a>{/block:PreviousPost}{block:NextPost}<a href="{NextPost}" class="back">
+                <span class="fa fa-long-arrow-left"></span>
+            </a>{/block:NextPost}
+            <div class="clear"></div>
+        </nav>
+        {/block:PermalinkPagination}
 
-      {block:PermalinkPage}
+        {block:PermalinkPage}
 
-      {block:PostNotes}
-      <div class="post-notes" id="notes">
-          {PostNotes-64}
-      </div>
-      {/block:PostNotes}
+        {block:PostNotes}
+        <div class="post-notes" id="notes">
+            {PostNotes-64}
+        </div>
+        {/block:PostNotes}
 
-      {block:IfDisqusShortname}
-      <div id="disqus_block">
-          <div id="disqus_thread"></div>
-      </div>
-      <script type="text/javascript">
-          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-          var disqus_shortname = '{text:Disqus Shortname}'; // Required - Replace example with your forum shortname
+        {block:IfDisqusShortname}
+        <div id="disqus_block">
+            <div id="disqus_thread"></div>
+        </div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = '{text:Disqus Shortname}'; // Required - Replace example with your forum shortname
 
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-      {/block:IfDisqusShortname}
-      {/block:PermalinkPage}
+        {/block:IfDisqusShortname}
+        {/block:PermalinkPage}
+
+      </footer>
 
     </div>
 
