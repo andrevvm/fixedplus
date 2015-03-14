@@ -26,7 +26,6 @@
 <meta name="image:Header logo" content="" />
 
 <!-- COLOR OPTIONS -->
-<meta name="color:Header background color" content="{BackgroundColor}"/>
 <meta name="color:Header title" content="{TitleColor}"/>
 <meta name="color:Header title hover" content="{AccentColor}"/>
 
@@ -56,8 +55,7 @@
 
 <!-- SELECT OPTIONS -->
 
-<meta name="select:Interface shape" content="Circle" title="Round">
-<meta name="select:Interface shape" content="Square" title="Square">
+
 
 <meta name="select:Menu style" content="Sidebar" title="Sidebar" />
 <meta name="select:Menu style" content="Fullscreen" title="Full screen" />
@@ -73,8 +71,8 @@
 <meta name="select:Header image attachment" content="fixed" title="Fixed" />
 <meta name="select:Header contents attachment" content="scroll" title="Scroll" />
 <meta name="select:Header contents attachment" content="fixed" title="Fixed" />
-<meta name="select:Header contents position" content="center" title="Center" />
 <meta name="select:Header contents position" content="top" title="Top" />
+<meta name="select:Header contents position" content="center" title="Center" />
 <meta name="select:Header contents position" content="bottom" title="Bottom" />
 
 
@@ -102,7 +100,8 @@
 <meta name="if:Fullscreen videos posts" content="1"/>
 <meta name="if:Show install theme button" content="0"/>
 
-<meta name="if:Dark UI Theme" content="0" >
+<meta name="if:Dark UI Theme" content="1" >
+<meta name="if:Rounded UI Theme" content="1" >
 
 <!-- TEXT OPTIONS -->
 <meta name="text:Avatar size" content="96px"/>
@@ -120,6 +119,7 @@
 <meta name="text:YouTube URL" content=""/>
 <meta name="text:Vimeo URL" content=""/>
 <meta name="text:Tumblr URL" content=""/>
+<meta name="text:Soundcloud URL" content=""/>
 <meta name="text:Pinterest URL" content=""/>
 <meta name="text:Dribbble URL" content=""/>
 <meta name="text:Contact email address" content=""/>
@@ -127,7 +127,7 @@
 <meta name="text:Google Analytics ID" content="" />
 
 
-<title>{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}</title>
+<title>{Title}{block:PostSummary} | {PostSummary}{/block:PostSummary}</title>
 <meta name="description" content="{MetaDescription}">
 
 <link rel="apple-touch-icon" href="{PortraitURL-128}">
@@ -304,18 +304,32 @@ header + .post.single.post-text .post-bg {
   flex-flow: row wrap;
 }
 
+.post-bg.tile .photo-url {
+  background-repeat: repeat;
+}
+
+.post-bg.no-stretch .photo-url {
+  background-size: auto;
+}
+
 .photo img,
 .photoset img,
 .panorama img {
   display: none;
 }
 
-.photo > a,
-.photoset > a,
-.panorama > a {
+.post-bg .photo-url {
   position: absolute;
   width: 100vw;
   min-height: 100vh;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.post-bg .photo-url.high-res {
+  display: none;
 }
 
 .post.post-photoset {
@@ -507,7 +521,8 @@ a {
   height: 14px !important;
   position: relative;
   display: inline-block;
-  line-height: 14px;
+  line-height: 28px;
+
 }
 
 .Light .meta {
@@ -552,7 +567,7 @@ a {
 }
 
 .meta li:last-child {
-  padding-right: 1em;
+  padding-right: 0.8em;
 }
 
 .meta li.more-link {
@@ -668,8 +683,15 @@ nav a:hover {
   background: rgba(0,0,0,0.05);
 }
 
+.infinite-scrolling.index-page.is-loading {
+  padding-bottom: 45px;
+}
+
 .infinite-scrolling.index-page nav.pages-nav {
-  display: block;
+  position: absolute;
+  left: -100vw;
+  height: 1px;
+  overflow: hidden;
 }
 
 .arrow {
@@ -944,7 +966,7 @@ img.Avatar.circle {
   -o-transition: border 200ms;
   transition: border 200ms;
   display: block;
-  padding: 0.9em 1em 0.80em;
+  padding: 0.9em 1em 0.75em;
   outline: none;
   line-height: 1em;
   color: {Color:Menu Text};
@@ -1001,7 +1023,7 @@ img.Avatar.circle {
 .Fullscreen #menu ul {
   margin: auto;
   position: relative;
-  top: -5%;
+  top: -2vh;
 }
 
 .Fullscreen #menu h3 {
@@ -1260,7 +1282,7 @@ label[for=ShowMenu] span:after {
 .quote .quote-text {
   text-align: center;
   position: relative;
-  padding: 10vw 5vw;
+  padding: 10vh 15vw;
   margin: auto;
 }
 
@@ -1269,23 +1291,26 @@ label[for=ShowMenu] span:after {
   height: auto;
 }
 
-.quote blockquote {
+.quote blockquote,
+.quote blockquote p {
   margin: 0;
   font-size: 24px;
   font-weight: bold;
   color: inherit;
 }
 
-.quote blockquote.long {
+.quote blockquote.long,
+.quote blockquote.long p {
   font-size: 16px;
 }
 
-.quote .source, .quote p,
+.quote .source, .quote .source + p,
 .link .source, .link p {
   color: inherit;
   opacity: 0.75;
   font-size: 16px;
   font-weight: normal;
+  display: inline-block;
 }
 
 .quote a {
@@ -1334,6 +1359,7 @@ label[for=ShowMenu] span:after {
 .audio.post-bg {
   background-repeat: repeat;
   background-size: auto;
+  background-attachment: {select:Photo image attachment};
 }
 
 .audio.post-bg > span {
@@ -1493,11 +1519,40 @@ label[for=ShowMenu] span:after {
 }
 
 .Loading {
-  padding: 10px;
   text-align: center;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
   background: {Color:Footer background};
   color: {Color:Footer text};
   font-size: 1.3em;
+  -webkit-transform: translate(0, 100%);
+  -moz-transform: translate(0, 100%);
+  -ms-transform: translate(0, 100%);
+  -o-transform: translate(0, 100%);
+  transform: translate(0, 100%);
+
+  -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -ms-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
+}
+
+.infinite-scrolling .Loading {
+  display: block;
+}
+
+.infinite-scrolling.is-loading .Loading {
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 
 .Loading i {
@@ -1670,25 +1725,37 @@ a.install {
 
   .post-bg {
     height: 100%;
+  }
+
+  .post-bg .photo-url {
     background-size: contain;
     background-attachment: {select:Photo image attachment};
     background-repeat: repeat;
   }
 
-  .post-bg.tile {
-    background-size: contain;
+  .post-bg .photo-url.low-res {
+    display: none;
   }
 
-  .post-bg.fill {
+  .post-bg .photo-url.high-res {
+    display: block;
+  }
+
+  .post-bg.tile .photo-url {
+    background-size: contain;
+    background-repeat: repeat;
+  }
+
+  .post-bg.fill .photo-url {
     background-size: cover;
   }
 
-  .post-bg.center {
+  .post-bg.center .photo-url {
     background-size: contain;
     background-repeat: no-repeat;
   }
 
-  .post-bg.no-stretch {
+  .post-bg.no-stretch .photo-url {
     background-size: auto;
   }
 
@@ -1700,17 +1767,14 @@ a.install {
     font-size: 32px;
   }
 
-  .quote blockquote {
+  .quote blockquote,
+  .quote blockquote p {
     font-size: 32px;
   }
 
-  .quote blockquote.long {
+  .quote blockquote.long,
+  .quote blockquote.long p {
     font-size: 24px;
-  }
-
-  .quote .source,
-  .link .source {
-    font-size: 20px;
   }
 
   .index-page.caption-background .caption,
@@ -1741,7 +1805,7 @@ a.install {
 
   .like_button {
     top: 1px;
-    left: 3px;
+    left: 2px;
   }
 
   #disqus_thread {
@@ -1766,21 +1830,28 @@ a.install {
     max-width: 440px;
   }
 
+  #menu form button {
+    min-width: 1.2em;
+  }
+
 
 }
 
 /* ---------- Small screen Responsive ---------- */
 
 @media only screen and (max-width: 640px) {
-  .quote blockquote {
+  .quote blockquote,
+  .quote blockquote p {
     font-size: 24px;
   }
 
-  .quote blockquote.long {
+  .quote blockquote.long,
+  .quote blockquote.long p {
     font-size: 16px;
   }
 
   .quote .source,
+  .quote .source p,
   .link .source {
     font-size: 16px;
   }
@@ -1817,7 +1888,7 @@ _gaq.push(['_trackPageview']);
 })();
 </script>{/block:IfGoogleAnalyticsID}
 </head>
-  <body class="{select:Interface Shape} {block:IfNotDarkUITheme}Light{/block:IfNotDarkUITheme}">
+  <body class="{block:IfRoundedUITheme}Circle{/block:IfRoundedUITheme} {block:IfNotDarkUITheme}Light{/block:IfNotDarkUITheme}">
     {block:IfShowInstallThemeButton}<a href="http://fixed.andrevv.com/" class="install"><i class="fa-arrow-circle-down fa"></i> {lang:Install this theme}</a>{/block:IfShowInstallThemeButton}
 
     <input type="checkbox" id="ShowMenu" />
@@ -1872,6 +1943,9 @@ _gaq.push(['_trackPageview']);
             {block:IfTumblrURL}
               <a href="{text:Tumblr URL}" title="Tumblr"><span class="fa fa-tumblr"></span></a>
             {/block:IfTumblrURL}
+            {block:IfSoundcloudURL}
+              <a href="{text:Soundcloud URL}" title="Soundcloud"><span class="fa fa-soundcloud"></span></a>
+            {/block:IfSoundcloudURL}
             {block:IfPinterestURL}
               <a href="{text:Pinterest URL}" title="Pinterest"><span class="fa fa-pinterest-p"></span></a>
             {/block:IfPinterestURL}
@@ -1995,9 +2069,12 @@ _gaq.push(['_trackPageview']);
           {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           {/block:Audio}
           {block:Photo}
-          <div class="photo post-bg {select:Photo image Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
-            <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url">
+          <div class="photo post-bg {select:Photo image Size}" alt="{PhotoAlt}">
+            <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
               <img src="{PhotoURL-HighRes}"/>
+            </a>
+            <a href="{PhotoURL-500}" data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+              <img src="{PhotoURL-500}"/>
             </a>
           </div>
 
@@ -2179,6 +2256,8 @@ _gaq.push(['_trackPageview']);
 
       <footer>
 
+        <div class="Loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+
         {block:Pagination}
         <nav class="pages-nav">
             {block:PreviousPage}
@@ -2239,22 +2318,33 @@ _gaq.push(['_trackPageview']);
 
     {block:IfInfiniteScrolling}
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.0b2.120519/jquery.infinitescroll.min.js" type="text/JavaScript"></script>
+    <script src="http://static.tumblr.com/54tapni/EDTnl3s3c/jquery.autopager-1.0.0.js" type="text/JavaScript"></script>
     <script type="text/javascript">
-      $('.container').infinitescroll({
+      $.autopager({
+          link   : 'nav.pages-nav .forward',
+          content: 'article.post',
 
-        loading: {
-          msg: $('<div class="Loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>'),
-          finishedMsg: null
-        },
+          // enable/disable scroll loading
+          autoLoad: true,
 
-        navSelector  : "nav.pages-nav",            
-                   // selector for the paged navigation (it will be hidden)
-        nextSelector : "nav.pages-nav .forward",    
-                       // selector for the NEXT link (to page 2)
-        itemSelector : "article.post",
-        bufferPx: 3000
+          // initial page number 
+          page: {CurrentPage},
+          
+          // where contents would be appended.
+          // use "appendTo" or "insertBefore"
+          insertBefore: 'footer', 
+          // insertBefore: '#footer', 
 
+          // a callback function to be triggered when loading start 
+          start: function(current, next) {
+            $('.infinite-scrolling').addClass('is-loading');
+          },
+
+          // a function to be executed when next page was loaded. 
+          // "this" points to the element of loaded content.
+          load: function(current, next) {
+            $('.infinite-scrolling').removeClass('is-loading');
+          }
       });
     </script>
     {/block:IfInfiniteScrolling}

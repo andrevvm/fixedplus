@@ -312,18 +312,21 @@ article.photoset:last-child {
   margin: 0 5%;
 }
 
-.quote blockquote {
+.quote blockquote,
+.quote blockquote p {
   margin: 0;
   font-size: 32px;
   font-weight: bold;
   color: white;
 }
 
-.quote .source {
+.quote .source,
+.quote .source + p {
   color: #FFF;
   opacity: 0.75;
   font-size: 20px;
   font-weight: bold;
+  display: inline-block;
 }
 
 .quote .source a {
