@@ -20,7 +20,9 @@
 
       ga('set', 'referrer', dimensionValue);
 
-      ga('send', 'pageview');
+      ga('send', 'pageview', {
+       'dimension1':  dimensionValue,
+       });
 
       function getUrlVars() {
         var vars = {};
