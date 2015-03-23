@@ -8,18 +8,15 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-40860577-2', 'auto');
-      ga('send', 'pageview');
-
       var source = getUrlVars();
 
-       _gaq.push(['_setCustomVar',
-          1,                   // This custom var is set to slot #1.  Required parameter.
-          'Source',     // The name acts as a kind of category for the user activity.  Required parameter.
-          source[0]
-       ]);
+      ga('create', 'UA-40860577-2', 'auto');
 
-       console.log(source[0]);
+      ga('set', 'dimension1', source[0]);
+
+      ga('send', 'pageview');
+
+      console.log(source[0]);
 
       function getUrlVars() {
         var vars = {};
