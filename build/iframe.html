@@ -11,6 +11,24 @@
       ga('create', 'UA-40860577-2', 'auto');
       ga('send', 'pageview');
 
+      var source = getUrlVars();
+
+       _gaq.push(['_setCustomVar',
+          1,                   // This custom var is set to slot #1.  Required parameter.
+          'Source',     // The name acts as a kind of category for the user activity.  Required parameter.
+          source[0]
+       ]);
+
+       console.log(source[0]);
+
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+
     </script>
 
   </head>
