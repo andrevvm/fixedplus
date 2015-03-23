@@ -1898,7 +1898,7 @@ _gaq.push(['_trackPageview']);
 </head>
   <body class="{block:IfRoundedUITheme}Circle{/block:IfRoundedUITheme} {block:IfNotDarkUITheme}Light{/block:IfNotDarkUITheme}">
     {block:IndexPage}
-    {block:IfShowInstallThemeButton}<script type="text/javascript" src="https://d3cir4unl8h07a.cloudfront.net/assets/external/embed.js"></script><a href="https://app.simplegoods.co/i/TTFDPUWJ" class="install"><i class="fa-arrow-circle-down fa"></i> {lang:Install this theme}</a>{/block:IfShowInstallThemeButton}
+    {block:IfShowInstallThemeButton}<script type="text/javascript" src="https://d3cir4unl8h07a.cloudfront.net/assets/external/embed.js"></script><a href="https://app.simplegoods.co/i/TTFDPUWJ" class="install"><i class="fa-arrow-circle-down fa"></i> Install theme</a>{/block:IfShowInstallThemeButton}
     {/block:IndexPage}
 
     <input type="checkbox" id="ShowMenu" />
@@ -1931,6 +1931,11 @@ _gaq.push(['_trackPageview']);
           {block:HasPages}
             {block:Pages}<li class="pages"><a href="{URL}">{Label}</a></li>{/block:Pages}
           {/block:HasPages}
+
+          {block:IfShowInstallThemeButton}
+            <li><a href="https://app.simplegoods.co/i/TTFDPUWJ">Install theme</a></li>
+          {/block:IfShowInstallThemeButton}          
+
           <li class="Social">
             {block:IfWebsiteURL}
               <a href="{text:Website URL}" title="Website"><span class="fa fa-globe"></span></a>
