@@ -2,9 +2,19 @@
 
 textarea {
   width: 99vw;
-  height: 80vh;
+  height: 200px;
   margin: 0 auto;
   border: 1px solid black;
   font-family: monospace;
   display: block; 
+}
+
+button {
+  display: block;
+  width: 100px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  line-height: 40px;
+  margin: 10px auto;
 }
