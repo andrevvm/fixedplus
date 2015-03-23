@@ -12,11 +12,11 @@
 
       ga('create', 'UA-40860577-2', 'auto');
 
-      ga('set', 'dimension1', source.src);
+      ga('send', 'pageview', {
+        'dimension1':  decodeURIComponent(source.src);
+      });
 
-      ga('send', 'pageview');
-
-      console.log(source.src);
+      console.log(decodeURIComponent(source.src));
 
       function getUrlVars() {
         var vars = {};
