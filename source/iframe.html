@@ -11,6 +11,19 @@
       ga('create', 'UA-40860577-2', 'auto');
       ga('send', 'pageview');
 
+      var source = getUrlVars();
+
+      var dimensionValue = source[0];
+      ga('set', 'dimension1', dimensionValue);
+
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+
     </script>
 
   </head>
