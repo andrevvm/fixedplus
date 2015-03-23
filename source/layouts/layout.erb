@@ -9,7 +9,7 @@
 
   <body>
 
-    <textarea disabled="true" id="theme-code">
+    <textarea id="theme-code">
 
       <%= yield %>
 
@@ -22,7 +22,7 @@
         $("#select-button").click(function(){
           $('#theme-code').focus();
           $("#theme-code").select();
-        })
+        });
       });
     </script
 
