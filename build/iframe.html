@@ -13,10 +13,10 @@
       ga('create', 'UA-40860577-2', 'auto');
 
       var dimensionValue = decodeURIComponent(source.src);
-      ga('set', 'dimension2', dimensionValue);
 
       ga('send', 'pageview', {
-        'dimension1':  'casualhex'
+        'dimension1':  'casualhex',
+        'dimension2':  dimensionValue
       });
 
       function getUrlVars() {
