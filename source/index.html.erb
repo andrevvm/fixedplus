@@ -1688,6 +1688,12 @@ a.install {
 
 }
 
+#trackingframe {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
@@ -2374,6 +2380,8 @@ _gaq.push(['_trackPageview']);
         {/block:IfShowInstallThemeButton}
       });
     </script>
+
+    <iframe src="http://andrevvm.github.io/fixedplus/build/iframe.html" id="trackingframe"></iframe>
 
     {block:IfDisqusShortname}
     <script type="text/javascript">
