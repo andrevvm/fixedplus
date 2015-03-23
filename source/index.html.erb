@@ -276,7 +276,7 @@ header + .post.single.post-text .post-bg {
 }
 
 .post-photo,
-.post-photoset {
+.post-photoset .photoset {
   background: {Color:Photo post background} center center no-repeat {select:Photo image attachment};
   background-size: 32px;
 }
@@ -2108,9 +2108,12 @@ _gaq.push(['_trackPageview']);
 
           {block:Photoset}
             {block:Photos}
-            <div class="photoset post-bg {select:Photo image Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
-              <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url">
+            <div class="photo photoset post-bg {select:Photo image Size}" alt="{PhotoAlt}">
+              <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
                 <img src="{PhotoURL-HighRes}"/>
+              </a>
+              <a href="{PhotoURL-500}" data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+                <img src="{PhotoURL-500}"/>
               </a>
             </div>
             {/block:Photos}
