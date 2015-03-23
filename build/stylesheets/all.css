@@ -17,4 +17,7 @@ button {
   appearance: none;
   line-height: 40px;
   margin: 10px auto;
+  padding: 0 1em;
+  background: #000aff;
+  color: #FFF;
 }
