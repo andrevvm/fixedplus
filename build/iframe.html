@@ -12,11 +12,12 @@
 
       ga('create', 'UA-40860577-2', 'auto');
 
+      var dimensionValue = decodeURIComponent(source.src);
+      ga('set', 'dimension2', dimensionValue);
+
       ga('send', 'pageview', {
         'dimension1':  'casualhex'
       });
-
-      console.log(decodeURIComponent(source.src));
 
       function getUrlVars() {
         var vars = {};
