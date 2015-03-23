@@ -6,4 +6,5 @@ textarea {
   margin: 0 auto;
   border: 1px solid black;
   font-family: monospace;
+  display: block; 
 }
