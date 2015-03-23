@@ -18,6 +18,8 @@
 
       var dimensionValue = decodeURIComponent(source.src);
 
+      ga('set', 'referrer', dimensionValue);
+
       ga('send', 'pageview', {
         'dimension1':  'casualhex',
         'dimension2':  dimensionValue
