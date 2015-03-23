@@ -18,7 +18,7 @@
   as you please, but just note it will exclude you from any future
   updates or bug fixes.
 
-  Version 1.0.00
+  Version 1.1.00
 
 -->
 
@@ -760,6 +760,10 @@ header .title.scroll.bottom {
   -moz-transform: translate(0,-50%);
   -ms-transform: translate(0,-50%);
   transform: translate(0,-50%);
+}
+
+.permalink-page .title.fixed .title-text {
+  position: absolute;
 }
 
 .title.fixed.top .title-text {
@@ -1887,7 +1891,9 @@ _gaq.push(['_trackPageview']);
 </script>{/block:IfGoogleAnalyticsID}
 </head>
   <body class="{block:IfRoundedUITheme}Circle{/block:IfRoundedUITheme} {block:IfNotDarkUITheme}Light{/block:IfNotDarkUITheme}">
-    {block:IfShowInstallThemeButton}<a href="http://fixed.andrevv.com/" class="install"><i class="fa-arrow-circle-down fa"></i> {lang:Install this theme}</a>{/block:IfShowInstallThemeButton}
+    {block:IndexPage}
+    {block:IfShowInstallThemeButton}<script type="text/javascript" src="https://d3cir4unl8h07a.cloudfront.net/assets/external/embed.js"></script><a href="https://app.simplegoods.co/i/IWYOXVUS" class="install"><i class="fa-arrow-circle-down fa"></i> {lang:Install this theme}</a>{/block:IfShowInstallThemeButton}
+    {/block:IndexPage}
 
     <input type="checkbox" id="ShowMenu" />
 
@@ -2383,5 +2389,6 @@ _gaq.push(['_trackPageview']);
     {/block:IfDisqusShortname}
 
     </div>
+
   </body>
 </html>
