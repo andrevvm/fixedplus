@@ -324,6 +324,7 @@ header + .post.single.post-text .post-bg {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
+  cursor: pointer;
 }
 
 .post-bg .photo-url.high-res {
@@ -2076,12 +2077,12 @@ _gaq.push(['_trackPageview']);
           {/block:Audio}
           {block:Photo}
           <div class="photo post-bg {select:Photo image Size}" alt="{PhotoAlt}">
-            <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+            <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
               <img src="{PhotoURL-HighRes}"/>
-            </a>
-            <a href="{PhotoURL-500}" data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+            </span>
+            <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
               <img src="{PhotoURL-500}"/>
-            </a>
+            </span>
           </div>
 
           {block:Caption}<div class="caption">
@@ -2105,22 +2106,28 @@ _gaq.push(['_trackPageview']);
           {block:Photoset}
             {block:Photos}
             <div class="photo photoset post-bg {select:Photo image Size}" alt="{PhotoAlt}">
-              <a href="{PhotoURL-HighRes}" data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+              <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
                 <img src="{PhotoURL-HighRes}"/>
-              </a>
-              <a href="{PhotoURL-500}" data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+              </span>
+              <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
                 <img src="{PhotoURL-500}"/>
-              </a>
+              </span>
             </div>
             {/block:Photos}
             {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           {/block:Photoset}
 
           {block:Panorama}
-            <div class="post-bg panorama {select:Photo image Size}" style="background-image:url({PhotoURL-HighRes})" alt="{PhotoAlt}">
-              {LinkOpenTag}{LinkCloseTag}
-              {block:Caption}<span class="caption"><span>{Caption}</span></span>{/block:Caption} 
-            </div>               
+            <div class="post-bg photo panorama {select:Photo image Size}" alt="{PhotoAlt}">
+              <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+                <img src="{PhotoURL-HighRes}"/>
+              </span>
+              <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+                <img src="{PhotoURL-500}"/>
+              </span>
+              
+            </div>     
+            {block:Caption}<span class="caption"><span>{Caption}</span></span>{/block:Caption}           
           {/block:Panorama}
 
           {block:Chat}
@@ -2399,4 +2406,5 @@ _gaq.push(['_trackPageview']);
 
   </body>
 </html>
+
 
