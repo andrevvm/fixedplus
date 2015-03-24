@@ -21,10 +21,10 @@
 
       console.log(version);
 
-      ga('set', 'referrer', dimensionValue);
+      ga('set', 'referrer', source);
 
       ga('send', 'pageview', {
-       'dimension1':  dimensionValue,
+       'dimension1':  source,
        'dimension2':  version
        });
 
