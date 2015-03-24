@@ -12,12 +12,12 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      var source = getUrlVars();
+      var vars = getUrlVars();
 
       ga('create', 'UA-40860577-2', {'alwaysSendReferrer': true});
 
-      var source = decodeURIComponent(source.src);
-      var version = source.version;
+      var source = decodeURIComponent(vars.src);
+      var version = vars.v;
 
       console.log(version);
 
