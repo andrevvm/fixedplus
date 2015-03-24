@@ -14,15 +14,18 @@
 
       var source = getUrlVars();
 
-      ga('create', 'UA-40860577-3', {'alwaysSendReferrer': true});
+      ga('create', 'UA-40860577-2', {'alwaysSendReferrer': true});
 
-      var dimensionValue = decodeURIComponent(source.src);
+      var source = decodeURIComponent(source.src);
+      var version = source.version;
+
+      console.log(version);
 
       ga('set', 'referrer', dimensionValue);
 
       ga('send', 'pageview', {
        'dimension1':  dimensionValue,
-       'dimension2': '1.1.00'
+       'dimension2':  version
        });
 
       function getUrlVars() {
