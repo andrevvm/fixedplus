@@ -95,6 +95,7 @@
 <meta name="if:Show like button" content="1"/>
 <meta name="if:Show reblog button" content="1"/>
 <meta name="if:Show permalink button" content="1"/>
+<meta name="if:Show clickthrough link button" content="1"/>
 <meta name="if:Fullscreen videos posts" content="1"/>
 <meta name="if:Show install theme button" content="0"/>
 
@@ -2077,12 +2078,14 @@ _gaq.push(['_trackPageview']);
           {/block:Audio}
           {block:Photo}
           <div class="photo post-bg {select:Photo image Size}" alt="{PhotoAlt}">
-            <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+            
+            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
               <img src="{PhotoURL-HighRes}"/>
             </span>
-            <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
               <img src="{PhotoURL-500}"/>
             </span>
+            
           </div>
 
           {block:Caption}<div class="caption">
@@ -2106,10 +2109,10 @@ _gaq.push(['_trackPageview']);
           {block:Photoset}
             {block:Photos}
             <div class="photo photoset post-bg {select:Photo image Size}" alt="{PhotoAlt}">
-              <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
                 <img src="{PhotoURL-HighRes}"/>
               </span>
-              <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
                 <img src="{PhotoURL-500}"/>
               </span>
             </div>
@@ -2119,10 +2122,10 @@ _gaq.push(['_trackPageview']);
 
           {block:Panorama}
             <div class="post-bg photo panorama {select:Photo image Size}" alt="{PhotoAlt}">
-              <span data-url="{LinkURL}" class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
                 <img src="{PhotoURL-HighRes}"/>
               </span>
-              <span data-url="{LinkURL}" class="photo-url low-res" style="background-image:url({PhotoURL-500})">
+              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
                 <img src="{PhotoURL-500}"/>
               </span>
               
@@ -2202,11 +2205,13 @@ _gaq.push(['_trackPageview']);
                     {ReblogButton size="12" color="white"}
                     {/block:IfDarkUITheme}
                   </li>
+                  {block:IfShowClickthroughLinkButton}
                   {block:LinkURL}
                   <li>
                     <a href="{LinkURL}"><i class="fa fa-external-link-square"></i></a>
                   </li>
                   {/block:LinkURL}
+                  {/block:IfShowClickthroughLinkButton}
                   {/block:PermalinkPage}
                 {/block:Date}
               {block:IndexPage}
@@ -2229,11 +2234,13 @@ _gaq.push(['_trackPageview']);
                   {ReblogButton size="12" color="black"}
                 </li>
                 {/block:IfShowReblogButton}
+                {block:IfShowClickthroughLinkButton}
                 {block:LinkURL}
                 <li>
                   <a href="{LinkURL}"><i class="fa fa-external-link-square"></i></a>
                 </li>
                 {/block:LinkURL}
+                {/block:IfShowClickthroughLinkButton}
             </ul>
           </div>
           {/block:IfNotDarkUITheme}
@@ -2250,11 +2257,13 @@ _gaq.push(['_trackPageview']);
                   {ReblogButton size="12" color="white"}
                 </li>
                 {/block:IfShowReblogButton}
+                {block:IfShowClickthroughLinkButton}
                 {block:LinkURL}
                 <li>
                   <a href="{LinkURL}"><i class="fa fa-external-link-square"></i></a>
                 </li>
                 {/block:LinkURL}
+                {/block:IfShowClickthroughLinkButton}
             </ul>
           </div>
           {/block:IfDarkUITheme}
@@ -2369,6 +2378,14 @@ _gaq.push(['_trackPageview']);
       $(function(){
         
         $(document).on("click", ".photo-url", function(e) {
+          
+
+          $url = $(e.target).attr('data-url');
+          if($url) {
+            window.location = $url;
+            return true;
+          }
+
           e.preventDefault();
           $post = $(e.target).closest('.post');
           $meta = $post.find('.meta');
