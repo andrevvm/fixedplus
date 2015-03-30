@@ -84,6 +84,7 @@
 
 <meta name="select:Captions on index" content="caption-background" title="With background" />
 <meta name="select:Captions on index" content="caption-transparent" title="Just text" />
+<meta name="select:Captions on index" content="caption-big" title="Big text overlay" />
 <meta name="select:Captions on index" content="caption-hide" title="None" />
 
 <!-- BOOLEAN OPTIONS -->
@@ -96,7 +97,7 @@
 <meta name="if:Show reblog button" content="1"/>
 <meta name="if:Show permalink button" content="1"/>
 <meta name="if:Show clickthrough link button" content="1"/>
-<meta name="if:Fullscreen videos posts" content="1"/>
+<meta name="if:Fullscreen video posts" content="1"/>
 <meta name="if:Show install theme button" content="0"/>
 
 <meta name="if:Dark UI Theme" content="1" >
@@ -219,6 +220,7 @@ body, html {
 
 .post {
   width: 100vw;
+  max-width: 100%;
   min-height: 100vh;
   height: auto;
   margin: 0 auto;
@@ -320,6 +322,7 @@ header + .post.single.post-text .post-bg {
 .post-bg .photo-url {
   position: absolute;
   width: 100vw;
+  max-width: 100%;
   min-height: 100vh;
   background-position: center center;
   background-repeat: no-repeat;
@@ -987,10 +990,11 @@ img.Avatar.circle {
 
 .Fullscreen #menu {
   width: 100vw;
+  max-width: 100%;
   height: 100vh;
-  width: -webkit-calc(100vw - 10px);
+  width: -webkit-calc(100% - 10px);
   height: -webkit-calc(100vh - 10px);
-  width: calc(100vw - 10px);
+  width: calc(100% - 10px);
   height: calc(100vh - 10px);
   margin: 5px;
 
@@ -1340,12 +1344,13 @@ label[for=ShowMenu] span:after {
 
 .tumblr_video_container {
   width: 100vw !important;
+  max-width: 100%;
   height: 100vh !important;
   margin: auto;
-  {block:IfFullscreenVideoPosts}
+  {block:IfNotFullscreenVideoPosts}
   width: 80vw !important;
   height: 80vh !important;
-  {/block:IfFullscreenVideoPosts}
+  {/block:IfNotFullscreenVideoPosts}
 }
 
 .tumblr_video_container iframe {
@@ -1374,17 +1379,18 @@ label[for=ShowMenu] span:after {
 .post-bg.video > iframe {
   display: block;
   width: 100vw;
+  max-width: 100%;
   height: 100vh;
   position: relative;
   margin: auto;
-  {block:IfFullscreenVideoPosts}
+  {block:IfNotFullscreenVideoPosts}
   width: -webkit-calc(100vw - 10vw);
   height: -webkit-calc(100vh - 10vw);
   width: -moz-calc(100vw - 10vw);
   height: -moz-calc(100vh - 10vw);
   width: calc(100vw - 10vw);
   height: calc(100vh - 10vw);
-  {/block:IfFullscreenVideoPosts}
+  {/block:IfNotFullscreenVideoPosts}
 }
 
 .video {
@@ -1430,6 +1436,7 @@ label[for=ShowMenu] span:after {
 .post-answer .text-block {
   margin: auto;
   width: 100vw;
+  max-width: 100%;
   min-width: 300px;
   font-size: 18px;
   padding: 40px 20%;
@@ -1569,6 +1576,7 @@ label[for=ShowMenu] span:after {
   cursor: -moz-zoom-out;
   cursor: zoom-out;
   width: 100vw;
+  max-width: 100%;
   height: 100vh;
   left: -104vw;
   top: 0;
@@ -1717,6 +1725,7 @@ a.install {
 
   .post {
     width: 100vw;
+    max-width: 100%;
     min-height: 100vh;
     height: auto;
     min-height: 240px;
@@ -1787,9 +1796,25 @@ a.install {
     display: inline-block;
   }
 
-  .index-page.caption-transparent .caption > span {
+  .index-page.caption-transparent .caption > span,
+  .index-page.caption-big .caption > span {
     background: none;
   }
+
+  .index-page.caption-big .caption {
+    font-size: 32px;
+    bottom: auto;
+    top: 50%;
+    min-width: 300px;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    display: inline-block;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+
+
 
   .text-block {
     font-size: 20px;
