@@ -97,6 +97,7 @@
 <meta name="if:Show reblog button" content="1"/>
 <meta name="if:Show permalink button" content="1"/>
 <meta name="if:Show clickthrough link button" content="1"/>
+<meta name="if:Horizontal photosets" content="1"/>
 <meta name="if:Fullscreen video posts" content="1"/>
 <meta name="if:Show install theme button" content="0"/>
 
@@ -319,8 +320,16 @@ header + .post.single.post-text .post-bg {
   display: none;
 }
 
-.photoset.photo {
+.horizontal-photoset .photoset.photo {
   -webkit-transition: margin-left 400ms ease-in-out;
+}
+
+.PhotosetNav {
+  display: none;
+}
+
+.horizontal-photoset .PhotosetNav {
+  display: block;
 }
 
 .PhotosetNav label {
@@ -361,6 +370,14 @@ header + .post.single.post-text .post-bg {
 }
 
 .post.post-photoset {
+  height: auto;
+}
+
+.post.post-photoset .post-bg {
+  height: 100vh;
+}
+
+.horizontal-photoset.post.post-photoset {
   height: 100vh;
   width: 100vw;
   max-width: 100%;
@@ -368,7 +385,7 @@ header + .post.single.post-text .post-bg {
   overflow: hidden;
 }
 
-.post.post-photoset .post-bg {
+.horizontal-photoset.post.post-photoset .post-bg {
   height: 100vh;
   width: 100vw;
   max-width: 100%;
@@ -2093,6 +2110,7 @@ _gaq.push(['_trackPageview']);
           {block:Panorama}post-panorama{/block:Panorama}
           {block:Chat}post-chat{/block:Chat}
           {block:Answer}post-answer{/block:Answer}
+          {block:IfHorizontalPhotosets}horizontal-photoset{/block:IfHorizontalPhotosets}
           ">
           {block:Text}
           <div class="text post-bg">
@@ -2168,6 +2186,7 @@ _gaq.push(['_trackPageview']);
 
           {block:Photoset}
 
+          
             <div class="PhotosetNav" data-index="0" data-count="{PhotoCount}">
               <label class="meta Next"><span class="fa fa-long-arrow-right"></span></label>
               <label class="meta Prev"><span class="fa fa-long-arrow-left"></span></label>
