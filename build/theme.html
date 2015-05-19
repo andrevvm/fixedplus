@@ -1735,8 +1735,8 @@ a.install {
   z-index: 104;
 }
 
-.install:hover {
-
+.install.buy {
+  display: none;
 }
 
 #trackingframe {
@@ -1968,7 +1968,9 @@ _gaq.push(['_trackPageview']);
 </head>
   <body class="{block:IfRoundedUITheme}Circle{/block:IfRoundedUITheme} {block:IfNotDarkUITheme}Light{/block:IfNotDarkUITheme}">
     {block:IndexPage}
-    {block:IfShowInstallThemeButton}<script type="text/javascript" src="https://d3cir4unl8h07a.cloudfront.net/assets/external/embed.js"></script><a href="https://app.simplegoods.co/i/TTFDPUWJ" class="install"><i class="fa-arrow-circle-down fa"></i> Install theme</a>{/block:IfShowInstallThemeButton}
+    {block:IfShowInstallThemeButton}<a href="http://fixed.andrevv.com/" class="install" target="_blank"><i class="fa-arrow-circle-down fa"></i> Install theme</a>{/block:IfShowInstallThemeButton}
+
+    <script type="text/javascript" src="https://d3cir4unl8h07a.cloudfront.net/assets/external/embed.js"></script><a href="https://app.simplegoods.co/i/TTFDPUWJ" class="install buy"><i class="fa-arrow-circle-down fa"></i> Install theme</a>
     {/block:IndexPage}
 
     <input type="checkbox" id="ShowMenu" />
@@ -2000,11 +2002,7 @@ _gaq.push(['_trackPageview']);
           {/block:SubmissionsEnabled}
           {block:HasPages}
             {block:Pages}<li class="pages"><a href="{URL}">{Label}</a></li>{/block:Pages}
-          {/block:HasPages}
-
-          {block:IfShowInstallThemeButton}
-            <li><a href="https://app.simplegoods.co/i/TTFDPUWJ">Install theme</a></li>
-          {/block:IfShowInstallThemeButton}          
+          {/block:HasPages}        
 
           <li class="Social">
             {block:IfWebsiteURL}
