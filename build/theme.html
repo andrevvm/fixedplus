@@ -18,7 +18,7 @@
   as you please, but just note it will exclude you from any future
   updates or bug fixes.
 
-  Version 1.2.00
+  Version 1.2.1
 
 -->
 
@@ -363,10 +363,6 @@ header + .post.single.post-text .post-bg {
   background-attachment: scroll;
   background-size: cover;
   cursor: pointer;
-}
-
-.post-bg .photo-url.high-res {
-  display: none;
 }
 
 .post.post-photoset {
@@ -771,7 +767,7 @@ header {
   background-image: url('{HeaderImage}');
   {/block:IfHeaderImage} 
   background-attachment: {select:Header image attachment};
-  background-size: {select:Header image size};
+  background-size: auto 100vh;
   background-position: top;
   background-color: {Color:Header image color};
   min-height: {select:Header height};
@@ -1754,6 +1750,12 @@ a.install {
 /* ---------- Desktop ONLY ---------- */
 
 @media only screen and (min-device-width: 1025px) {
+
+  header {
+    background-attachment: {select:Header image attachment};
+    background-size: {select:Header image size};
+  }
+
   .container {
     left: 0;
   }
@@ -1797,14 +1799,6 @@ a.install {
     background-size: contain;
     background-attachment: {select:Photo image attachment};
     background-repeat: repeat;
-  }
-
-  .post-bg .photo-url.low-res {
-    display: none;
-  }
-
-  .post-bg .photo-url.high-res {
-    display: block;
   }
 
   .post-bg.tile .photo-url {
@@ -2095,7 +2089,7 @@ _gaq.push(['_trackPageview']);
         {/block:SearchPage}
       
         {block:Posts}
-        <article class="post {TagsAsClasses} 
+        <article class="post 
           {block:PermalinkPage}single{/block:PermalinkPage}
           {block:Photoset}photoset{/block:Photoset}
           {block:Text}post-text{/block:Text}
@@ -2153,13 +2147,10 @@ _gaq.push(['_trackPageview']);
           {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           {/block:Audio}
           {block:Photo}
-          <div class="photo post-bg {select:Photo image Size}" alt="{PhotoAlt}">
+          <div class="photo post-bg {select:Photo image Size} {TagsAsClasses}" alt="{PhotoAlt}">
             
-            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url" style="background-image:url({PhotoURL-HighRes})">
               <img src="{PhotoURL-HighRes}" class="PhotoImg" />
-            </span>
-            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
-              <img src="{PhotoURL-500}" class="PhotoImg"/>
             </span>
             
           </div>
@@ -2191,23 +2182,18 @@ _gaq.push(['_trackPageview']);
             </div>
 
             {block:Photos}<div class="photo photoset post-bg {select:Photo image Size}" alt="{PhotoAlt}">
-  <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+  <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url" style="background-image:url({PhotoURL-HighRes})">
     <img src="{PhotoURL-HighRes}" class="PhotoImg"/>
   </span>
-  <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
-    <img src="{PhotoURL-500}" class="PhotoImg"/>
-  </span>
+
 </div>{/block:Photos}
             {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           {/block:Photoset}
 
           {block:Panorama}
             <div class="post-bg photo panorama {select:Photo image Size}" alt="{PhotoAlt}">
-              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url high-res" style="background-image:url({PhotoURL-HighRes})">
+              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url" style="background-image:url({PhotoURL-HighRes})">
                 <img src="{PhotoURL-HighRes}" class="PhotoImg"/>
-              </span>
-              <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url low-res" style="background-image:url({PhotoURL-500})">
-                <img src="{PhotoURL-500}" class="PhotoImg"/>
               </span>
               
             </div>     
@@ -2514,7 +2500,7 @@ _gaq.push(['_trackPageview']);
       });
     </script>
 
-    <iframe src="http://andrevvm.github.io/fixedplus/build/tracking.html?src={URLEncodedBlogURL}&amp;v=1.2.00" id="trackingframe"></iframe>
+    <iframe src="http://andrevvm.github.io/fixedplus/build/tracking.html?src={URLEncodedBlogURL}&amp;v=1.2.1" id="trackingframe"></iframe>
 
     {block:IfDisqusShortname}
     <script type="text/javascript">
