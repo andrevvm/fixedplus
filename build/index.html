@@ -1092,6 +1092,28 @@ a {
   display: none;
 }
 
+.index-page.caption-big .caption {
+  display: inline-block;
+}
+
+.index-page.caption-transparent .caption > span,
+.index-page.caption-big .caption > span {
+  background: none;
+}
+
+.index-page.caption-big .caption {
+  font-size: 18px;
+  bottom: auto;
+  top: 50%;
+  min-width: 300px;
+  -webkit-transform: translate(0,-50%);
+  -moz-transform: translate(0,-50%);
+  -ms-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+  display: inline-block;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+
 .permalink-page .caption {
   display: block;
   position: relative;
@@ -2268,24 +2290,9 @@ a.install {
     display: inline-block;
   }
 
-  .index-page.caption-transparent .caption > span,
-  .index-page.caption-big .caption > span {
-    background: none;
-  }
-
   .index-page.caption-big .caption {
     font-size: 32px;
-    bottom: auto;
-    top: 50%;
-    min-width: 300px;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
-    -ms-transform: translate(0,-50%);
-    transform: translate(0,-50%);
-    display: inline-block;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
   }
-
 
 
   .text-block {
