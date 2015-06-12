@@ -314,6 +314,24 @@ header + .post.single.post-text .post-bg {
   background-size: auto;
 }
 
+.photo-url.tile {
+  background-repeat: repeat !important;
+}
+
+.photo-url.no-stretch {
+  background-size: auto !important;
+}
+
+.photo-url.fill {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.photo-url.center {
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+}
+
 .photo img,
 .photoset img,
 .panorama img {
@@ -2147,9 +2165,9 @@ _gaq.push(['_trackPageview']);
           {block:Caption}<div class="caption"><span>{Caption}</span></div>{/block:Caption}
           {/block:Audio}
           {block:Photo}
-          <div class="photo post-bg {select:Photo image Size} {TagsAsClasses}" alt="{PhotoAlt}">
+          <div class="photo post-bg {select:Photo image Size}" alt="{PhotoAlt}">
             
-            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url" style="background-image:url({PhotoURL-HighRes})">
+            <span {block:IfNotShowClickthroughLinkButton}{block:LinkURL}data-url="{LinkURL}"{/block:LinkURL}{/block:IfNotShowClickthroughLinkButton} class="photo-url {TagsAsClasses}" style="background-image:url({PhotoURL-HighRes})">
               <img src="{PhotoURL-HighRes}" class="PhotoImg" />
             </span>
             
