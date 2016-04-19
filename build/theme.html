@@ -18,7 +18,7 @@
   as you please, but just note it will exclude you from any future
   updates or bug fixes.
 
-  Version 1.2.1
+  Version 1.2.2
 
 -->
 
@@ -98,6 +98,8 @@
 <meta name="if:Show permalink button" content="1"/>
 <meta name="if:Show clickthrough link button" content="1"/>
 <meta name="if:Horizontal photosets" content="1"/>
+<meta name="if:Show captions on mobile" content="0"/>
+<meta name="if:Open videos in overlay" content="0" />
 <meta name="if:Show install theme button" content="0"/>
 
 <meta name="if:Dark UI Theme" content="1" >
@@ -329,6 +331,24 @@ header + .post.single.post-text .post-bg {
 .photo-url.center {
   background-repeat: no-repeat !important;
   background-size: contain !important;
+}
+
+.post-bg.tile .photo-url {
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.post-bg.fill .photo-url {
+  background-size: cover;
+}
+
+.post-bg.center .photo-url {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.post-bg.no-stretch .photo-url {
+  background-size: auto;
 }
 
 .photo img,
@@ -650,7 +670,7 @@ a {
   line-height: 1.2em;
   font-weight: bold;
   position: absolute;
-  bottom: 10px;
+  bottom: 60px;
   left: 0;
   width: 100vw;
   max-width: 100%;
@@ -672,26 +692,36 @@ a {
 .caption > span {
   display: inline-block;
   padding: 0px 15px;
-  margin: 0 20%;
+  margin: auto;
+  max-width: 80vw;
   background: {color:Caption background};
+}
+
+.index-page .caption {
+  max-height: 50vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Circle .caption > span {
   border-radius: 20px;
 }
 
-.index-page .caption {
-  display: none;
-}
-
-.index-page.caption-big .caption {
-  display: inline-block;
-}
-
 .index-page.caption-transparent .caption > span,
 .index-page.caption-big .caption > span {
   background: none;
 }
+
+.index-page.caption-hide .caption {
+  display: none;
+}
+
+{block:IfNotShowCaptionsOnMobile}
+.index-page .caption {
+  display: none;
+}
+{/block:IfNotShowCaptionsOnMobile}
+
 
 .index-page.caption-big .caption {
   font-size: 18px;
@@ -806,8 +836,8 @@ header {
   {block:IfHeaderImage} 
   background-image: url('{HeaderImage}');
   {/block:IfHeaderImage} 
-  background-attachment: {select:Header image attachment};
-  background-size: auto 100vh;
+  background-size: {select:Header image size};
+  background-attachment: scroll;
   background-position: top;
   background-color: {Color:Header image color};
   min-height: {select:Header height};
@@ -938,12 +968,13 @@ img.Avatar.circle {
    Menu
    ========================================================================== */
 
-#tumblr_controls {
+#tumblr_controls,
+.tmblr-iframe {
   z-index: 104;
   margin-top: 7px;
   margin-right: 7px;
   {block:IfShowInstallThemeButton}
-  right: 127px;
+  right: 102px !important;
   {/block:IfShowInstallThemeButton}
 }
 
@@ -1795,7 +1826,6 @@ a.install {
 
   header {
     background-attachment: {select:Header image attachment};
-    background-size: {select:Header image size};
   }
 
   .container {
@@ -1827,6 +1857,9 @@ a.install {
     min-height: 240px;
   }
 
+  .caption {
+    bottom: 10px;
+  }
 
   .post.inline {
     height: auto;
@@ -1841,24 +1874,6 @@ a.install {
     background-size: contain;
     background-attachment: {select:Photo image attachment};
     background-repeat: repeat;
-  }
-
-  .post-bg.tile .photo-url {
-    background-size: contain;
-    background-repeat: repeat;
-  }
-
-  .post-bg.fill .photo-url {
-    background-size: cover;
-  }
-
-  .post-bg.center .photo-url {
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .post-bg.no-stretch .photo-url {
-    background-size: auto;
   }
 
   .quote, .link {
@@ -2466,6 +2481,43 @@ _gaq.push(['_trackPageview']);
     </script>
     {/block:IfInfiniteScrolling}
 
+    {block:IfOpenVideosInOverlay}
+
+      <style>
+
+        .index-page .video {
+          cursor: pointer;
+        }
+
+        .index-page .video iframe {
+          pointer-events: none;
+        }
+      </style>
+
+      <script type="text/javascript">
+        $(function(){
+          $(document).on("click", ".index-page .video", function(e) {
+            console.log("VIDEO");
+            e.preventDefault();
+            $post = $(e.target).closest('.post');
+            $meta = $post.find('.meta:not(.Next,.Prev)');
+            $iframe = $(this).find("iframe").clone();
+            $("#overlay").addClass("show");
+            $("#overlay .holder").html($iframe);
+            $meta.addClass('float').appendTo("#overlay");
+
+            $("#overlay").click(function(e) {
+              $(this).removeClass("show");
+              $meta.removeClass('float').appendTo($post);
+              $photosetnav.prependTo($post);
+            });
+          });
+        });
+
+      </script>
+
+    {/block:IfOpenVideosInOverlay}
+
     <script type="text/javascript">
       $(function(){
         
@@ -2491,6 +2543,10 @@ _gaq.push(['_trackPageview']);
             $photosetnav.prependTo($post);
           });
         });
+
+
+
+
 
         $(document).on("click", ".PhotosetNav label.Next", function(e) {
           var i = $(this).parent(".PhotosetNav").attr("data-index");
@@ -2520,13 +2576,10 @@ _gaq.push(['_trackPageview']);
           $(this).parent(".PhotosetNav").attr("data-index", i);
         });
 
-        {block:IfShowInstallThemeButton}
-          $("#tumblr_controls, .tmblr-iframe--controls, .tmblr-iframe--desktop-loggedin-controls, .tmblr-iframe--mobile-loggedin-controls").css("right",$("a.install").width() + 17);
-        {/block:IfShowInstallThemeButton}
       });
     </script>
 
-    <iframe src="http://andrevvm.github.io/fixedplus/build/tracking.html?src={URLEncodedBlogURL}&amp;v=1.2.1" id="trackingframe"></iframe>
+    <iframe src="http://andrevvm.github.io/fixedplus/build/tracking.html?src={URLEncodedBlogURL}&amp;v=1.2.2" id="trackingframe"></iframe>
 
     {block:IfDisqusShortname}
     <script type="text/javascript">
